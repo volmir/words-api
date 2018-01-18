@@ -50,7 +50,7 @@ class Game {
             $count++;
 
             $this->combinations[] = '\'' . $word . '\'';
-            if (count($this->combinations) == 100000) {
+            if ($count % 100000 == 0) {
                 $this->checkCombination();
                 $this->combinations = [];
             }
@@ -67,7 +67,20 @@ class Game {
         if ($result = $this->mysqli->query($sql)) {
             while ($row = $result->fetch_assoc()) {
                 $lenght = mb_strlen($row['vocab']);
-                $this->results[$lenght][] = ['vocab' => $row['vocab']];
+                if (!isset($this->results[$lenght])) {
+                    $this->results[$lenght][] = ['vocab' => $row['vocab']];
+                } else {
+                    $finded = false;
+                    foreach ($this->results[$lenght] as $word) {
+                        if ($row['vocab'] == $word['vocab']) {
+                            $finded = true;
+                            break;
+                        }
+                    }
+                    if (!$finded) {
+                        $this->results[$lenght][] = ['vocab' => $row['vocab']];
+                    }
+                }
             }
             $result->close();
         }

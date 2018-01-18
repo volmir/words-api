@@ -13,9 +13,14 @@ if (isset($this->params['results'])) {
         <h3>Все слова, которые можно составить из "<?= $base_word ?>"</h3>
 
         <?php
+        
+        $data = $this->params['results']['data'];
+        ksort($data);
+        reset($data);
+        
         $total_lenght = [];
         $total_words = 0;
-        foreach ($this->params['results']['data'] as $lenght => $words) {
+        foreach ($data as $lenght => $words) {
             if (count($words) > 0) {
                 $total_lenght[] = $lenght;
                 $total_words += count($words);
@@ -25,9 +30,6 @@ if (isset($this->params['results'])) {
         <p><i>Из "<?= $base_word ?>" можно составить <?= $total_words ?> слов из <?= implode(',', $total_lenght) ?> букв</i>.</p>
 
         <?php
-        $data = $this->params['results']['data'];
-        ksort($data);
-        reset($data);
         foreach ($data as $lenght => $words) {
             if (count($words) > 0) {
                 ?>
