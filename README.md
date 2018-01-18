@@ -14,6 +14,5 @@ $ git clone https://github.com/volmir/words-api.git
 
 **API URL examples**
 
-> http://project.site/api/words/портал
->
-> http://project.site/api/description/черника
+    http://project.site/api/words/портал
+    http://project.site/api/description/черника
