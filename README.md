@@ -7,13 +7,15 @@ Compete with friends in number of the put words and the used letters, and learn 
 Based on YII2 Basic template.
 
 ### Installation
+
 ```sh
 $ cd /path/to/htdocs
 $ git clone https://github.com/volmir/words-api.git
 ```
 
 **API URL examples**
+
 ```
-http://project.site/api/words/портал
-http://project.site/api/description/черника
+http://project.domain/api/words/портал
+http://project.domain/api/description/черника
 ```
