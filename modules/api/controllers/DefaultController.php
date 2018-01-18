@@ -12,29 +12,51 @@ use app\models\Vocabulary;
  */
 class DefaultController extends Controller {
     
+    /**
+     *
+     * @var Timer 
+     */
+    public $timer;
+
     public function init() {
+        $this->timer = new Yii::$app->timer();
+        $this->timer->start();
+        
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     }
 
     public function actionWords($word) {
+        $result = new \stdClass();
+        
         $word = Vocabulary::clear($word);
+        $word = mb_strtolower($word);        
+        if (mb_strlen($word) > 10) {
+            $word = mb_substr($word, 0, 10);
+        } 
         
-        $game = new Game();
-        $game->setWord($word);
-        $game->run();
-        $results = $game->getResults();
+        if (mb_strlen($word) > 0) {
+            $game = new Game();
+            $game->setWord($word);
+            $game->run();
+
+            $result->status = 'success';
+            $result->word = $word;
+            $result->data = $game->getResults();
+        } else {
+            $result->status = 'error';
+            $result->reason = 'Incorrect word. Myst be cyrillic.';
+            $result->word = $word;
+            $result->data = [];
+        }
+
+//        echo Yii::$app->memory::getMemoryUsage() . PHP_EOL;
+//        echo 'Время: ' . $this->timer->finish() . ' сек.' . PHP_EOL;
         
-        $data = new \stdClass();
-        $data->status = 'success';
-        $data->word = $word;
-        $data->data = $results;
-        
-        return $data;
+        return $result;
     }
 
     public function actionDescription($word) {
         $results = \app\models\Vocabulary::find()
-                //->select(['vocabulary_id', 'def', 'leglexam'])
                 ->where(['vocab' => $word])
                 ->all();
 

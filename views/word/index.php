@@ -14,8 +14,8 @@ $this->title = 'Составь слова - игра';
     </p>
     <form class="form-inline" method="get" action="/answers">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="" name="word" value="" maxlength="20">
+            <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="20">
         </div>
-        <button class="btn btn-primary" type="submit">Искать варианты</button>
+        <button class="btn btn-primary btn-lg" type="submit">Искать варианты</button>
     </form>
 </div>

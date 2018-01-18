@@ -46,6 +46,15 @@ $config = [
                 ],
             ],
         ],
+        'timer' => [
+            'class' => 'app\components\helpers\Timer'
+        ],        
+        'memory' => [
+            'class' => 'app\components\helpers\Memory'
+        ],
+        'mysqli' => [
+            'class' => 'app\components\adapter\MySQLi'
+        ],        
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
