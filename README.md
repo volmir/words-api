@@ -2,9 +2,7 @@ Words game API
 ===============
 
 The game "Make Words" offers players the known puzzle in which it is necessary to make different words of one long word.
-
-Compete with friends in number of the put words and the used letters, and learn who cleverer.
-
+Compete with friends in number of the put words and the used letters, and learn who cleverer. 
 Based on YII2 Basic template.
 
 ### Installation
