@@ -4,8 +4,10 @@ namespace app\modules\api\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\Game;
+use app\models\Searching;
 use app\models\Vocabulary;
+
+set_time_limit(60);
 
 /**
  * Default controller for the `api` module
@@ -35,7 +37,7 @@ class DefaultController extends Controller {
         } 
         
         if (mb_strlen($word) > 0) {
-            $game = new Game();
+            $game = new Searching();
             $game->setWord($word);
             $game->run();
 
@@ -49,7 +51,7 @@ class DefaultController extends Controller {
             $result->data = [];
         }
 
-//        echo Yii::$app->memory::getMemoryUsage() . PHP_EOL;
+//        echo Yii::$app->memory::getMemoryPeakUsage() . PHP_EOL;
 //        echo 'Время: ' . $this->timer->finish() . ' сек.' . PHP_EOL;
         
         return $result;

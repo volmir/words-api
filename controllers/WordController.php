@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Url;
+use app\models\Game;
 
 class WordController extends Controller {
 
@@ -12,6 +13,22 @@ class WordController extends Controller {
         return $this->render('index');
     }
 
+    public function actionGame() {
+        $word = Yii::$app->request->post('word');
+        $game = Yii::$app->session->get('game');
+        if (mb_strlen($word) || count($game)) {
+            $game = new Game();
+            if (mb_strlen($word)) {
+                $game->setWord($word);
+            }
+            $game->run();
+            
+            return $this->render('game');
+        } else {
+            return $this->redirect('/');
+        }
+    }    
+    
     public function actionAnswers() {
         $word = Yii::$app->request->get('word');
         if (mb_strlen($word)) {
@@ -20,8 +37,12 @@ class WordController extends Controller {
             $results = json_decode($content, true);
 
             Yii::$app->view->params['results'] = $results;
+            
+            return $this->render('answers_results');
+        } else {
+            return $this->render('answers_form');
         }
-        return $this->render('answers');
+        
     }
 
     public function actionDescription() {

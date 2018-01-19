@@ -39,6 +39,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Главная', 'url' => ['/']],
+            ['label' => 'Игра', 'url' => ['/game']],            
+            ['label' => 'Поиск слов', 'url' => ['/answers']],
             ['label' => 'Правила', 'url' => ['/rules']],
             ['label' => 'Об игре', 'url' => ['/about']],
         ],

@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
+use \Yii;
 use yii\helpers\Html;
 
 if (isset($this->params['results'])) {
@@ -47,12 +48,8 @@ if (isset($this->params['results'])) {
         }
     } else {
         $this->title = 'Слово не найдено';
-        $this->params['breadcrumbs'][] = ['label' => 'Поиск слов', 'url' => ['/']];
-        $this->params['breadcrumbs'][] = ['label' => 'Ничего не найдено'];
+        Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
         ?>
-        <div class="alert alert-warning">
-            <strong>Ошибка!</strong> Ничего не найдено.
-        </div>
         <p class="text-center">
             <a href="/" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
         </p>
@@ -60,12 +57,8 @@ if (isset($this->params['results'])) {
     }
 } else {
     $this->title = 'Слово не найдено';
-    $this->params['breadcrumbs'][] = ['label' => 'Поиск слов', 'url' => ['/']];
-    $this->params['breadcrumbs'][] = ['label' => 'Ничего не найдено'];
+    Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
     ?>
-    <div class="alert alert-warning">
-        <strong>Ошибка!</strong> Ничего не найдено.
-    </div>
     <p class="text-center">
         <a href="/" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
     </p>        

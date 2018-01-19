@@ -48,13 +48,26 @@ $config = [
         ],
         'timer' => [
             'class' => 'app\components\helpers\Timer'
-        ],        
+        ],
         'memory' => [
             'class' => 'app\components\helpers\Memory'
         ],
         'mysqli' => [
             'class' => 'app\components\adapter\MySQLi'
-        ],        
+        ],
+        'fileCache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+        'memCache' => [
+            'class' => 'yii\caching\MemCache',
+            'useMemcached' => true,
+            'servers' => [
+                [
+                    'host' => '127.0.0.1',
+                    'port' => 11211,
+                ],
+            ],
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -67,6 +80,7 @@ $config = [
                 'rules' => 'word/rules',
                 'answers' => 'word/answers',
                 'description' => 'word/description',
+                'game' => 'word/game',
                 
                 'GET api/words/<word>' => 'api/default/words',
                 'GET api/description/<word>' => 'api/default/description',

@@ -19,14 +19,31 @@ class Memory {
      * @return string
      */
     public static function getMemoryUsage() {
-        $mem_usage = memory_get_usage();
-        if ($mem_usage < 1024) {
-            return $mem_usage . " bytes";
-        } elseif ($mem_usage < 1048576) {
-            return round($mem_usage / 1024, 2) . " kilobytes";
-        } else {
-            return round($mem_usage / 1048576, 2) . " megabytes";
-        }
+        return self::formatData(memory_get_usage());
     }
 
+    /**
+     * Get memory peak usage
+     *
+     * @return string
+     */
+    public static function getMemoryPeakUsage() {
+        return self::formatData(memory_get_peak_usage());
+    }    
+
+    /**
+     * 
+     * @param int $bytes
+     * @return string
+     */
+    private static function formatData($bytes) {
+        if ($bytes < 1024) {
+            return $bytes . " bytes";
+        } elseif ($bytes < 1048576) {
+            return round($bytes / 1024, 2) . " kilobytes";
+        } else {
+            return round($bytes / 1048576, 2) . " megabytes";
+        }
+    }    
+    
 }
