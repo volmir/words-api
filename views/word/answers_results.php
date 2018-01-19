@@ -53,11 +53,7 @@ if (isset($this->params['results'])) {
         $this->title = 'Возможные комбинации слов не найдены';
         Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
         ?>
-                <!--
-        <div class="alert alert-warning">
-            <strong>Ошибка!</strong> Ничего не найдено.
-        </div>
-                -->
+
         <p class="text-center">
             <a href="/" class="btn btn-success btn-lg">Попробовать снова</a>
         </p>
@@ -67,11 +63,7 @@ if (isset($this->params['results'])) {
     $this->title = 'Возможные комбинации слов не найдены';
     Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
     ?>
-        <!--
-    <div class="alert alert-warning">
-        <strong>Ошибка!</strong> Ничего не найдено.
-    </div>
-        -->
+
     <p class="text-center">
         <a href="/" class="btn btn-success btn-lg">Попробовать снова</a>
     </p>
