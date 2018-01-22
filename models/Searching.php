@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use app\models\Combination;
 use app\models\Vocabulary;
+use app\components\adapter\MySQLi;
 
 class Searching {
 
@@ -62,7 +63,7 @@ class Searching {
     }
     
     protected function checkCombinationMysqli() {
-        $mysqli = Yii::$app->mysqli::getInstance();
+        $mysqli = MySQLi::getInstance();
         $sql = "SELECT `vocab` 
                 FROM `vocabulary` 
                 WHERE `vocab` IN ('" . implode('\',\'', $this->combinations) . "') 

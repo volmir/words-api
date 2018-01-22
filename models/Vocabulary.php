@@ -26,6 +26,10 @@ class Vocabulary extends \yii\db\ActiveRecord
      * @return string
      */
     public static function clear($word) {
+        $word = trim($word);
+        $word = strip_tags($word);
+        $word = stripslashes($word);
+        $word = htmlspecialchars($word);
         $word = preg_replace('/[^а-яА-ЯёЁ]/ui', '', $word);
         
         return $word;

@@ -6,6 +6,8 @@ use Yii;
 use yii\web\Controller;
 use app\models\Searching;
 use app\models\Vocabulary;
+use app\components\helpers\Timer;
+use app\components\helpers\Memory;
 
 set_time_limit(60);
 
@@ -21,7 +23,7 @@ class DefaultController extends Controller {
     public $timer;
 
     public function init() {
-        $this->timer = new Yii::$app->timer();
+        $this->timer = new Timer();
         $this->timer->start();
         
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -29,38 +31,45 @@ class DefaultController extends Controller {
 
     public function actionWords($word) {
         $result = new \stdClass();
+        $result->word = $word;
+        $result->data = [];
         
         $word = Vocabulary::clear($word);
         $word = mb_strtolower($word);        
         if (mb_strlen($word) > 10) {
-            $word = mb_substr($word, 0, 10);
-        } 
-        
-        if (mb_strlen($word) > 0) {
+            $result->status = 'error';
+            $result->reason = 'The length of the word is limited to 10 characters.';
+        } elseif (mb_strlen($word) > 0) {
             $game = new Searching();
             $game->setWord($word);
             $game->run();
 
             $result->status = 'success';
-            $result->word = $word;
             $result->data = $game->getResults();
         } else {
             $result->status = 'error';
-            $result->reason = 'Incorrect word. Myst be cyrillic.';
-            $result->word = $word;
-            $result->data = [];
+            $result->reason = 'Incorrect word. Must be cyrillic.';
         }
 
-//        echo Yii::$app->memory::getMemoryPeakUsage() . PHP_EOL;
-//        echo 'Время: ' . $this->timer->finish() . ' сек.' . PHP_EOL;
+        if (Yii::$app->request->get('debug')) {
+            echo 'Память: ' . Memory::getMemoryPeakUsage() . PHP_EOL;
+            echo 'Время: ' . $this->timer->finish() . ' сек.' . PHP_EOL;
+        }
         
         return $result;
     }
 
     public function actionDescription($word) {
-        $results = \app\models\Vocabulary::find()
+        $results = Vocabulary::find()
                 ->where(['vocab' => $word])
+                ->asArray()
                 ->all();
+        
+        if ($results) {
+            foreach ($results as $key => $result) {
+                $results[$key]['def'] = nl2br($result['def']);
+            }
+        } 
 
         $data = new \stdClass();
         $data->status = 'success';

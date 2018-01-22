@@ -55,7 +55,7 @@ if (isset($this->params['results'])) {
         ?>
 
         <p class="text-center">
-            <a href="/" class="btn btn-success btn-lg">Попробовать снова</a>
+            <a href="/answers" class="btn btn-success btn-lg">Попробовать снова</a>
         </p>
         <?php
     }
@@ -65,7 +65,7 @@ if (isset($this->params['results'])) {
     ?>
 
     <p class="text-center">
-        <a href="/" class="btn btn-success btn-lg">Попробовать снова</a>
+        <a href="/answers" class="btn btn-success btn-lg">Попробовать снова</a>
     </p>
     <?php
 }

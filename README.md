@@ -11,6 +11,9 @@ Based on YII2 Basic template.
 ```sh
 $ cd /path/to/htdocs
 $ git clone https://github.com/volmir/words-api.git
+$
+$ ./yii set-cache
+$ ./yii cache/flush memCache
 ```
 
 **API URL examples**

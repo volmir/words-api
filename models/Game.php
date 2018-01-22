@@ -12,7 +12,11 @@ class Game {
      * @var string 
      */
     protected $word;
-
+    /**
+     *
+     * @var string 
+     */
+    protected $answer;
     /**
      *
      * @var string 
@@ -22,7 +26,10 @@ class Game {
     public function setWord($word) {
         $this->word = $word;
     }
-
+    public function setAnswer($answer) {
+        $this->answer = $answer;
+    }
+    
     public function run() {
         $this->init();
         $this->checkGame();
@@ -35,17 +42,16 @@ class Game {
     }
     
     private function checkAnswer() {
-        $answer = Yii::$app->request->post('answer');
-        if (mb_strlen($answer)) {
+        if (mb_strlen($this->answer)) {
             $answers = $this->game['answers'];
-            if (in_array($answer, $this->game['answers'])) {
-                Yii::$app->session->setFlash('info', 'Вы уже разгадали слово <strong>' . $answer . '</strong>');
-            } elseif (in_array($answer, $this->game['words'])) {
-                $this->game['answers'][] = $answer;
+            if (in_array($this->answer, $this->game['answers'])) {
+                Yii::$app->session->setFlash('info', 'Вы уже разгадали слово <strong>' . $this->answer . '</strong>');
+            } elseif (in_array($this->answer, $this->game['words'])) {
+                $this->game['answers'][] = $this->answer;
                 Yii::$app->session->set('game', $this->game);
                 Yii::$app->session->setFlash('success', 'Правильно!');
             } else {
-                Yii::$app->session->setFlash('info', 'Слово <strong>' . $answer . '</strong> не найдено!');
+                Yii::$app->session->setFlash('info', 'Слово <strong>' . $this->answer . '</strong> не найдено!');
             }
         }
     }
@@ -67,7 +73,6 @@ class Game {
     }
 
     private function newGame() {
-        $this->word = str_replace('/', '', $this->word);
         $api_url = Url::to('api/words/' . urlencode($this->word), true);
         $content = file_get_contents($api_url);
         $results = json_decode($content, true);

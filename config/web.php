@@ -46,15 +46,15 @@ $config = [
                 ],
             ],
         ],
-        'timer' => [
-            'class' => 'app\components\helpers\Timer'
-        ],
-        'memory' => [
-            'class' => 'app\components\helpers\Memory'
-        ],
-        'mysqli' => [
-            'class' => 'app\components\adapter\MySQLi'
-        ],
+//        'timer' => [
+//            'class' => 'app\components\helpers\Timer'
+//        ],
+//        'memory' => [
+//            'class' => 'app\components\helpers\Memory'
+//        ],
+//        'mysqli' => [
+//            'class' => 'app\components\adapter\MySQLi'
+//        ],
         'fileCache' => [
             'class' => 'yii\caching\FileCache',
         ],

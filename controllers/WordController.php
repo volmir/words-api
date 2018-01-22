@@ -8,6 +8,8 @@ use yii\helpers\Url;
 use app\models\Game;
 use app\models\Vocabulary;
 
+set_time_limit(60);
+
 class WordController extends Controller {
 
     public function actionIndex() {
@@ -18,10 +20,18 @@ class WordController extends Controller {
         $word = Yii::$app->request->post('word');
         $word = Vocabulary::clear($word);
         $game = Yii::$app->session->get('game');
-        if (mb_strlen($word) || count($game)) {
+        if (mb_strlen($word) > 10) {
+            Yii::$app->session->setFlash('info', 'Введите слово длиной не более 10-ти символов');
+            return $this->redirect('/');
+        } elseif (mb_strlen($word) || count($game)) {
             $game = new Game();
             if (mb_strlen($word)) {
                 $game->setWord($word);
+            }
+            $answer = Yii::$app->request->post('answer');
+            $answer = Vocabulary::clear($answer);
+            if (mb_strlen($answer)) {
+                $game->setAnswer($answer);
             }
             $game->run();
             
@@ -34,8 +44,8 @@ class WordController extends Controller {
     
     public function actionAnswers() {
         $word = Yii::$app->request->get('word');
+        $word = Vocabulary::clear($word);
         if (mb_strlen($word)) {
-            $word = str_replace('/', '', $word);
             $api_url = Url::to('api/words/' . urlencode($word), true);
             $content = file_get_contents($api_url);
             $results = json_decode($content, true);
@@ -51,8 +61,8 @@ class WordController extends Controller {
 
     public function actionDescription() {
         $word = Yii::$app->request->get('word');
+        $word = Vocabulary::clear($word);
         if (mb_strlen($word)) {
-            $word = str_replace('/', '', $word);
             $api_url = Url::to('api/description/' . urlencode($word), true);
             $content = file_get_contents($api_url);
             $results = json_decode($content, true);
