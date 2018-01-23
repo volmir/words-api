@@ -11,9 +11,9 @@ namespace app\commands;
 use yii\console\Controller;
 use yii\helpers\Console;
 
-class SetCacheController extends Controller {
+class VocabularyController extends Controller {
 
-    public function actionIndex() {
+    public function actionSet() {
         $words = \Yii::$app->db->createCommand('SELECT vocab FROM vocabulary')->queryAll();
         if (isset($words)) {
             foreach ($words as $word) {

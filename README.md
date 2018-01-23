@@ -12,7 +12,7 @@ Based on YII2 Basic template.
 $ cd /path/to/htdocs
 $ git clone https://github.com/volmir/words-api.git
 $
-$ ./yii set-cache
+$ ./yii vocabulary/set
 $ ./yii cache/flush memCache
 ```
 
