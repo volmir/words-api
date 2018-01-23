@@ -19,7 +19,7 @@ class WordController extends Controller {
     public function actionGame() {
         $word = Yii::$app->request->post('word');
         $word = Vocabulary::clear($word);
-        $game = Yii::$app->session->get('game');
+        $game = Yii::$app->session->get('game', []);
         if (mb_strlen($word) > 10) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не более 10-ти символов');
             return $this->redirect('/');
