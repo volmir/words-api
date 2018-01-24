@@ -58,7 +58,7 @@ class Game {
 
     private function checkGame() {
         if (mb_strlen($this->word)) {
-            if (count($this->game) == 0) {
+            if (is_null($this->game) || count($this->game) == 0) {
                 $this->newGame();
             } elseif ($this->game['word'] != $this->word) {
                 $this->newGame();
@@ -68,7 +68,9 @@ class Game {
     
     private function checkFinish() {
         if (count($this->game['words']) == count($this->game['answers'])) {
-            Yii::$app->session->setFlash('success', 'Вы отгадали все слова!');
+            if (count($this->game['words'])) {
+                Yii::$app->session->setFlash('success', 'Вы отгадали все слова!');
+            }
         }
     }
 
@@ -84,6 +86,8 @@ class Game {
                     $words[] = $word['vocab'];
                 }
             }
+        } else {
+            Yii::$app->session->setFlash('info', 'Комбинации слов не найдены!');
         }
         
         $game = [

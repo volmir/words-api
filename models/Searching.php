@@ -14,16 +14,19 @@ class Searching {
      * @var array 
      */
     protected $combinations;
+
     /**
      *
      * @var array 
      */
     protected $results;
+
     /**
      *
      * @var string 
      */
     protected $word;
+
     /**
      *
      * @var \mysqli
@@ -31,6 +34,8 @@ class Searching {
     private $mysqli;
 
     public function setWord($word) {
+        $this->combinations = [];
+        $this->results = [];
         $this->word = $word;
     }
 
@@ -54,14 +59,14 @@ class Searching {
 
     protected function checkCombination() {
         $type = 'cache';
-        
+
         if ($type == 'cache') {
             $this->checkCombinationCache();
         } elseif ($type == 'mysqli') {
             $this->checkCombinationMysqli();
         }
     }
-    
+
     protected function checkCombinationMysqli() {
         $mysqli = MySQLi::getInstance();
         $sql = "SELECT `vocab` 
@@ -73,20 +78,22 @@ class Searching {
                 $this->setResult($row['vocab']);
             }
             $result->close();
-        }   
+        }
     }
-    
+
     protected function checkCombinationCache() {
-        $result = Yii::$app->memCache->multiGet($this->combinations);
-        if (isset($result)) {
-            foreach ($result as $key => $word) {
-                if ($word) {
-                    $this->setResult($word);
+        if (count($this->combinations)) {
+            $result = Yii::$app->memCache->multiGet($this->combinations);
+            if (isset($result)) {
+                foreach ($result as $key => $word) {
+                    if ($word) {
+                        $this->setResult($word);
+                    }
                 }
             }
         }
     }
-    
+
     /**
      * 
      * @param type $new_word
