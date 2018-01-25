@@ -27,15 +27,19 @@ if (isset($this->params['results'])) {
                 $total_words += count($words);
             }
         }
+        
+        $total_words_name = \app\models\Vocabulary::getNameWords($total_words);
+        
         ?>
-        <p><i>Из "<?= $base_word ?>" можно составить <?= $total_words ?> слов из <?= implode(',', $total_lenght) ?> букв</i>.</p>
+        <p><i>Из "<?= $base_word ?>" можно составить <?= $total_words ?> <?= $total_words_name ?> из <?= implode(',', $total_lenght) ?> букв</i>.</p>
 
         <?php
         foreach ($data as $lenght => $words) {
             if (count($words) > 0) {
+                $words_name = \app\models\Vocabulary::getNameWords(count($words));
                 ?>
                 <p>Слова из <?= $lenght ?> букв, составленные из комбинации "<?= $base_word ?>"
-                    (<?= count($words) ?> <?= count($words) > 1 ? 'слова' : 'слово' ?>):</p>
+                    (<?= count($words) ?> <?= $words_name ?>):</p>
                 <ul class="list-inline">
                     <?php
                     foreach ($words as $word) {
