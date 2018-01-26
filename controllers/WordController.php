@@ -50,10 +50,10 @@ class WordController extends Controller {
         $word = Vocabulary::clear($word);
         if (mb_strlen($word) > 0 && mb_strlen($word) <= 2) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не менее 3-х символов');
-            return $this->redirect('/');
+            return $this->redirect('/answers');
         } elseif (mb_strlen($word) > 10) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не более 10-ти символов');
-            return $this->redirect('/');
+            return $this->redirect('/answers');
         } elseif (mb_strlen($word)) {
             $api_url = Url::to('api/words/' . urlencode($word), true);
             $content = file_get_contents($api_url);

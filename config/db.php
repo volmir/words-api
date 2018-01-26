@@ -7,10 +7,6 @@ if (YII_ENV_DEV) {
         'username' => 'developer',
         'password' => 'msj7398mRdK',
         'charset' => 'utf8',
-            // Schema cache options (for production environment)
-            //'enableSchemaCache' => true,
-            //'schemaCacheDuration' => 60,
-            //'schemaCache' => 'cache',
     ];
 } else {
     return [

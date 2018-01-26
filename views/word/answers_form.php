@@ -16,6 +16,19 @@ $this->title = 'Составь слова - игра';
         <div class="form-group">
             <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="20">
         </div>
-        <button class="btn btn-primary btn-lg" type="submit">Искать варианты</button>
+        <button class="btn btn-primary btn-lg" id="start_search" type="submit">Искать варианты</button>
     </form>
 </div>
+
+
+<div id="myModalWaiting" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <p class="text-center" style="padding: 40px 0px 30px 0px;">
+                <img src="/images/waiting.gif" width="40" border="0">
+                <strong>Идет поиск комбинаций слов ...</strong>
+            </p>
+        </div>
+    </div>
+</div> 
+
