@@ -11,9 +11,9 @@ if (YII_ENV_DEV) {
 } else {
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=words',
-        'username' => 'developer',
-        'password' => 'msj7398mRdK',
+        'dsn' => 'mysql:host=localhost;dbname=combinat',
+        'username' => 'u_combinat',
+        'password' => 'pdNx29oc',
         'charset' => 'utf8',
             // Schema cache options (for production environment)
             //'enableSchemaCache' => true,
