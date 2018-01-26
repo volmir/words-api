@@ -3,6 +3,7 @@
 
 use \Yii;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 if (isset($this->params['results'])) {
 
@@ -44,7 +45,7 @@ if (isset($this->params['results'])) {
                     <?php
                     foreach ($words as $word) {
                         ?>
-                        <li><a href="/description?word=<?= $word['vocab'] ?>"><?= $word['vocab'] ?></a> </li>
+                    <li><a href="<?= Url::toRoute(['description', 'word' => $word['vocab']]) ?>"><?= $word['vocab'] ?></a> </li>
                         <?php
                     }
                     ?>
@@ -59,7 +60,7 @@ if (isset($this->params['results'])) {
         ?>
 
         <p class="text-center">
-            <a href="/answers" class="btn btn-success btn-lg">Попробовать снова</a>
+            <a href="<?= Url::toRoute(['answers']) ?>" class="btn btn-success btn-lg">Попробовать снова</a>
         </p>
         <?php
     }
@@ -69,7 +70,7 @@ if (isset($this->params['results'])) {
     ?>
 
     <p class="text-center">
-        <a href="/answers" class="btn btn-success btn-lg">Попробовать снова</a>
+        <a href="<?= Url::toRoute(['answers']) ?>" class="btn btn-success btn-lg">Попробовать снова</a>
     </p>
     <?php
 }

@@ -51,7 +51,7 @@ if (isset($this->params['results'])) {
         Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
         ?>
         <p class="text-center">
-            <a href="/" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
+            <a href="<?= Yii::$app->getHomeUrl() ?>" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
         </p>
         <?php
     }
@@ -60,7 +60,7 @@ if (isset($this->params['results'])) {
     Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
     ?>
     <p class="text-center">
-        <a href="/" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
+        <a href="<?= Yii::$app->getHomeUrl() ?>" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
     </p>        
     <?php
 }

@@ -75,7 +75,7 @@ class Game {
     }
 
     private function newGame() {
-        $api_url = Url::to('api/words/' . urlencode($this->word), true);
+        $api_url = Url::toRoute('words/' . urlencode($this->word), true);
         $content = file_get_contents($api_url);
         $results = json_decode($content, true);
 

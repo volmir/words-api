@@ -19,6 +19,6 @@ $ ./yii cache/flush memCache
 **API URL examples**
 
 ```
-http://project.domain/api/words/портал
-http://project.domain/api/description/черника
+http://api.combination.cf/web/words/портал
+http://api.combination.cf/web/description/черника
 ```

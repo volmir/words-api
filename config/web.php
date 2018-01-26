@@ -46,15 +46,6 @@ $config = [
                 ],
             ],
         ],
-//        'timer' => [
-//            'class' => 'app\components\helpers\Timer'
-//        ],
-//        'memory' => [
-//            'class' => 'app\components\helpers\Memory'
-//        ],
-//        'mysqli' => [
-//            'class' => 'app\components\adapter\MySQLi'
-//        ],
         'fileCache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -74,7 +65,7 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                //'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 
                 'about' => 'word/about',
                 'rules' => 'word/rules',
@@ -83,8 +74,8 @@ $config = [
                 'game' => 'word/game',
                 'game/finish' => 'word/finish',
                 
-                'GET api/words/<word>' => 'api/default/words',
-                'GET api/description/<word>' => 'api/default/description',
+                'GET words/<word>' => 'api/default/words',
+                'GET description/<word>' => 'api/default/description',
             ],
         ],
     ],
@@ -92,13 +83,13 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
+//    // configuration adjustments for 'dev' environment
+//    $config['bootstrap'][] = 'debug';
+//    $config['modules']['debug'] = [
+//        'class' => 'yii\debug\Module',
+//        // uncomment the following to add your IP if you are not connecting from localhost.
+//        //'allowedIPs' => ['127.0.0.1', '::1'],
+//    ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [

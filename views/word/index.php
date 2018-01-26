@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'Составь слова - игра';
 ?>
@@ -12,7 +13,7 @@ $this->title = 'Составь слова - игра';
     <p>
         <span>Введите слово:</span>
     </p>
-    <form class="form-inline" method="post" action="/game">
+    <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
         <input type="hidden" name="_csrf" value="<?=\Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
             <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="20">
@@ -39,7 +40,7 @@ $this->title = 'Составь слова - игра';
     <div class="modal-dialog">
         <div class="modal-content">
             <p class="text-center" style="padding: 40px 0px 30px 0px;">
-                <img src="/images/waiting.gif" width="40" border="0">
+                <img src="<?= Url::toRoute(['images/waiting.gif']) ?>" width="40" border="0">
                 <strong>Идет поиск комбинаций слов ...</strong>
             </p>
         </div>

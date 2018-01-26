@@ -22,10 +22,10 @@ class WordController extends Controller {
         $game = Yii::$app->session->get('game', []);
         if (mb_strlen($word) > 0 && mb_strlen($word) <= 2) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не менее 3-х символов');
-            return $this->redirect('/');
+            return $this->redirect(Yii::$app->getHomeUrl());
         } elseif (mb_strlen($word) > 10) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не более 10-ти символов');
-            return $this->redirect('/');
+            return $this->redirect(Yii::$app->getHomeUrl());
         } elseif (mb_strlen($word) || count($game)) {
             $game = new Game();
             if (mb_strlen($word)) {
@@ -41,7 +41,7 @@ class WordController extends Controller {
             return $this->render('game');
         } else {
             Yii::$app->session->setFlash('info', 'Для начала игры введите корректное слово');
-            return $this->redirect('/');
+            return $this->redirect(Yii::$app->getHomeUrl());
         }
     }    
     
@@ -50,12 +50,12 @@ class WordController extends Controller {
         $word = Vocabulary::clear($word);
         if (mb_strlen($word) > 0 && mb_strlen($word) <= 2) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не менее 3-х символов');
-            return $this->redirect('/answers');
+            return $this->redirect(Url::toRoute(['answers']));
         } elseif (mb_strlen($word) > 10) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не более 10-ти символов');
-            return $this->redirect('/answers');
+            return $this->redirect(Url::toRoute(['answers']));
         } elseif (mb_strlen($word)) {
-            $api_url = Url::to('api/words/' . urlencode($word), true);
+            $api_url = Url::toRoute('words/' . urlencode($word), true);
             $content = file_get_contents($api_url);
             $results = json_decode($content, true);
 
@@ -72,7 +72,7 @@ class WordController extends Controller {
         $word = Yii::$app->request->get('word');
         $word = Vocabulary::clear($word);
         if (mb_strlen($word)) {
-            $api_url = Url::to('api/description/' . urlencode($word), true);
+            $api_url = Url::toRoute('description/' . urlencode($word), true);
             $content = file_get_contents($api_url);
             $results = json_decode($content, true);
 
@@ -83,7 +83,7 @@ class WordController extends Controller {
 
     public function actionFinish() {
         Yii::$app->session->set('game', []);
-        return $this->redirect('/');
+        return $this->redirect(Yii::$app->getHomeUrl());
     }    
     
     public function actionRules() {

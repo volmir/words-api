@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\models\Multibyte;
 
 $game = Yii::$app->session->get('game');
@@ -24,7 +25,7 @@ foreach ($letters as $letter) {
 
 <div>
 
-    <form class="form-inline" method="post" action="/game">
+    <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
         <span>Ваш ответ:</span>
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>" />
         <div class="form-group">
@@ -45,7 +46,7 @@ if (count($game['answers'])) {
         <?php
         foreach ($game['answers'] as $answer) {
             ?>
-            <li><a href="/description?word=<?= $answer ?>" target="_blank"><?= $answer ?></a> </li>
+            <li><a href="<?= Url::toRoute(['description', 'word' => $answer]) ?>" target="_blank"><?= $answer ?></a> </li>
             <?php
         }
         ?>
@@ -67,7 +68,7 @@ if (count($game['answers'])) {
             <div class="modal-body">
                 <p class="text-center">          
                     <br>    
-                    <a href="/game/finish" class="btn btn-danger"> Да </a>
+                    <a href="<?= Url::toRoute(['game/finish']) ?>" class="btn btn-danger"> Да </a>
                     <button type="button" class="btn btn-success" data-dismiss="modal">Нет</button>
                     <br>
                 </p>
