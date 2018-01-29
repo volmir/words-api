@@ -17,6 +17,7 @@ class WordController extends Controller {
     }
 
     public function actionGame() {
+        $this->view->params['show_footer'] = true;
         $word = Yii::$app->request->post('word');
         $word = Vocabulary::clear($word);
         $game = Yii::$app->session->get('game', []);

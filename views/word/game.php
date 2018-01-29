@@ -7,6 +7,9 @@ use app\models\Multibyte;
 
 $game = Yii::$app->session->get('game');
 
+$total_words_count = count($game['words']);
+$total_words_name = \app\models\Vocabulary::getNameWords($total_words_count);
+
 $this->title = $game['word'] . ' - cоставь слова';
 ?>
 
@@ -20,7 +23,7 @@ foreach ($letters as $letter) {
 
 <p>
     <br>
-    <i>всего найдено <?= count($game['words']) ?> слов, вы отгадали <?= (int) count($game['answers']) ?></i>
+    <i>всего найдено <?=$total_words_count?> <?=$total_words_name?>, вы отгадали <?= (int) count($game['answers']) ?></i>
 </p>
 
 <div>
@@ -82,11 +85,7 @@ if (count($game['answers'])) {
 </div>    
 
 
-<div class="down">
-    <p><a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm">
-            <i class="glyphicon glyphicon-remove"></i> Завершить игру</a></p>
 
-</div>
 
 
 

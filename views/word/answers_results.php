@@ -45,7 +45,7 @@ if (isset($this->params['results'])) {
                     <?php
                     foreach ($words as $word) {
                         ?>
-                    <li><a href="<?= Url::toRoute(['description', 'word' => $word['vocab']]) ?>"><?= $word['vocab'] ?></a> </li>
+                    <li><a href="<?= Url::toRoute(['description', 'word' => $word['vocab']]) ?>" target="_blank"><?= $word['vocab'] ?></a> </li>
                         <?php
                     }
                     ?>

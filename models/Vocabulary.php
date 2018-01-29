@@ -37,9 +37,9 @@ class Vocabulary extends \yii\db\ActiveRecord
     
     public static function getNameWords($count_words = 0) {
         $name_words = 'слов';
-        if (in_array($count_words, [1,21,31,41,51,61,71,81,91])) { 
+        if (in_array($count_words, [1,21,31,41,51,61,71,81,91,101,121,131,141,151,161])) { 
             $name_words = 'слово';
-        } elseif (in_array($count_words, [22,23,24,32,33,34,42,43,44,52,53,54,62,63,64,72,73,74,82,83,84,91,92,93,94])) { 
+        } elseif (in_array($count_words, [22,23,24,32,33,34,42,43,44,52,53,54,62,63,64,72,73,74,82,83,84,91,92,93,94,102,103,104,112,113,114,122,123,124])) { 
             $name_words = 'слова'; 
         }
         

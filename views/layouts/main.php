@@ -57,15 +57,18 @@ AppAsset::register($this);
     </div>
 </div>
 
-<?php /* ?>    
-<footer class="footer">
+<?php 
+if (isset($this->params['show_footer']) && $this->params['show_footer']) { 
+?>    
+<footer>
     <div class="container">
-        <p class="pull-left">&copy; <?= date('Y') ?></p>
-
-        <p class="pull-right"></p>
+        <p class="pull-left">
+            <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm">
+            <i class="glyphicon glyphicon-remove"></i> Завершить игру</a>
+        </p>
     </div>
-</footer>
-<?php */ ?>
+</footer>    
+<?php } ?>    
 
 <?php $this->endBody() ?>
 </body>
