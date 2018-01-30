@@ -56,9 +56,9 @@ class DefaultController extends Controller {
         if (mb_strlen($word) <= 2) {
             $result->status = 'error';
             $result->reason = 'The length of the word must be more that 2 characters.';
-        } elseif (mb_strlen($word) > 10) {
+        } elseif (mb_strlen($word) > 9) {
             $result->status = 'error';
-            $result->reason = 'The length of the word is limited to 10 characters.';
+            $result->reason = 'The length of the word is limited to 9 characters.';
         } elseif (mb_strlen($word) > 0) {
             $game = new Searching();
             $game->setWord($word);
