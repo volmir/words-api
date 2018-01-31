@@ -15,7 +15,7 @@ $this->title = 'Составь слова - игра';
     </p>
     <form class="form-inline" method="get" action="<?= Url::toRoute(['answers']) ?>">
         <div class="form-group">
-            <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="20">
+            <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="30">
         </div>
         <button class="btn btn-primary btn-lg" id="start_search" type="submit">Искать варианты</button>
     </form>

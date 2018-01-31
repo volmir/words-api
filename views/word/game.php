@@ -18,8 +18,7 @@ $this->title = $game['word'] . ' - cоставь слова';
 <?php
 $letters = Multibyte::stringToArray($game['word']);
 foreach ($letters as $letter) {
-    ?><div class="letters"><?= mb_strtoupper($letter) ?></div>
-<?php } ?>
+    ?><div class="letters"><?= mb_strtoupper($letter) ?></div><?php } ?>
 
 <p>
     <br>
@@ -32,7 +31,7 @@ foreach ($letters as $letter) {
         <span>Ваш ответ:</span>
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>" />
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="" name="answer" value="" maxlength="20">
+            <input type="text" class="form-control" placeholder="" id="answerInput" name="answer" value="" maxlength="30">
         </div>
         <button class="btn btn-primary" type="submit">Проверить</button>
     </form>
@@ -87,5 +86,20 @@ if (count($game['answers'])) {
 
 
 
+<script language="javascript" type="text/javascript">
+    
+function SetFocus() {
+    if (!document.getElementById) {
+        return;
+    }
 
+    var txtMyInputBoxElement = document.getElementById("answerInput");
+    if (txtMyInputBoxElement != null) {
+        txtMyInputBoxElement.focus();
+    }
+}
+
+SetFocus();
+
+</script>
 

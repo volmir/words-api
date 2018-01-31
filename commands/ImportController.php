@@ -96,65 +96,111 @@ class ImportController extends Controller {
                 $descr = trim(implode(PHP_EOL, $block));
 
                 if (mb_strlen($word) > 2 
-                        && $part_of_speech != 'прил.'
-                        && $part_of_speech != 'м. разг.'
-                        && $part_of_speech != '1. м. разг.'
-                        && $part_of_speech != 'м. разг.-сниж.'
-                        && $part_of_speech != '1. м. разг.-сниж.'
-                        && !strpos($part_of_speech, 'м. разг.') 
-                        && !mb_strpos($part_of_speech, 'м. разг.')
-                        && !mb_strpos($part_of_speech, 'разг.')
-                        && !mb_strpos($part_of_speech, '-сниж.')
-                        && !mb_strpos($word, '...')
-                        && $part_of_speech != 'I'
-                        && $part_of_speech != 'предикатив'
-                        && $part_of_speech != 'несов. и сов.'
-                        && $part_of_speech != '1. нареч. нар.-поэт.'
-                        && $part_of_speech != '1. предикатив'
-                        && $part_of_speech != 'сов. неперех. местн.'
-                        && $part_of_speech != '1. прил.'
+                        && ($part_of_speech == 'предикатив' || mb_strpos($part_of_speech, 'разг.')) 
+                        && count(explode(' ', $word)) == 1
+                        && !mb_strpos($word, '-')
+                        && !mb_strpos($part_of_speech, 'прил.')
+                        && !mb_strpos($part_of_speech, 'сниж.')
+                        && !mb_strpos($part_of_speech, 'мн.')
+                        && $part_of_speech != 'нареч. разг.'
+                        && $part_of_speech != '1. ж. разг.'
+                        && $part_of_speech != 'ж. разг.'
                         && $part_of_speech != 'прил. разг.'
-                        && $part_of_speech != 'прил. нар.-поэт.'
-                        && $part_of_speech != '1. прил. нар.-поэт.'
-                        && $part_of_speech != 'прил. местн.'
-                        && $part_of_speech != 'прил. разг.-сниж.'
-                        && $part_of_speech != 'прил. устар.'
+                        && $part_of_speech != 'несов. неперех. разг.'
+                        && $part_of_speech != 'местоим. разг.'
+                        && $part_of_speech != 'мн. разг.'
+                        && $part_of_speech != 'несов. разг.'
+                        && $part_of_speech != 'несов. перех. разг.'
+                        && $part_of_speech != 'сов. перех. и неперех. разг.'
+                        && $part_of_speech != 'несов. перех. и неперех. разг.'
+                        && $part_of_speech != '1. несов. перех. разг.'
+                        && $part_of_speech != '1. сов. неперех. разг.'
+                        && $part_of_speech != '1. несов. разг.'
+                        && $part_of_speech != '1. несов. неперех. разг.'
+                        && $part_of_speech != 'сов. неперех. разг.'
+                        && $part_of_speech != '1. нареч. разг.'
+                        && $part_of_speech != 'несов. и сов. перех. разг.'
+                        && $part_of_speech != '1. предикатив разг.'
+                        && $part_of_speech != 'предикатив разг.'
+                        && $part_of_speech != '1. сов. перех. разг.'
+                        && $part_of_speech != '1. несов. перех. и неперех. разг.'
+                        && $part_of_speech != '1. сов. перех. и неперех. разг.'
+                        && $part_of_speech != 'сов. разг.'
+                        && $part_of_speech != '1. сов. разг.'
+                        && $part_of_speech != 'сов. перех. разг.'
+                        && $part_of_speech != '1. м. нескл. разг.'
+                        && $part_of_speech != 'несов. и сов. перех. и неперех. разг.'
+                        && $part_of_speech != 'несов. и сов. разг.'
+                        && $part_of_speech != '1. союз разг.'
+                        && $part_of_speech != 'союз разг.'
+                        && $part_of_speech != 'мн. нескл. разг.'
                         && $part_of_speech != 'мн.'
-                        && $part_of_speech != 'несов.'
-                        && $part_of_speech != 'сов.'
-                        && $part_of_speech != 'несов. перех. и неперех.'
-                        && $part_of_speech != 'несов. неперех.'
-                        && $part_of_speech != 'несов. перех.'
-                        && $part_of_speech != 'несов. и сов. перех.'
-                        && $part_of_speech != 'сов. перех.'
-                        && $part_of_speech != 'сов. неперех.'
-                        && $part_of_speech != 'несов. и сов. перех. и неперех.'
-                        && $part_of_speech != '1. несов.'
-                        && $part_of_speech != '1. сов.'
-                        && $part_of_speech != '1. несов. перех. и неперех.'
-                        && $part_of_speech != '1. несов. неперех.'
-                        && $part_of_speech != '1. несов. перех.'
-                        && $part_of_speech != '1. несов. и сов. перех.'
-                        && $part_of_speech != '1. сов. перех.'
-                        && $part_of_speech != '1. сов. неперех.'
-                        && $part_of_speech != '1. несов. и сов. перех. и неперех.'                        
-                        && $part_of_speech != 'несов. неперех. местн.'                        
-                        && $part_of_speech != 'м. местн.'                        
-                        && $part_of_speech != 'ж. местн.'                        
-                        && $part_of_speech != 'ср. местн.'                        
-                        && !strpos($part_of_speech, 'прил.')
-                        && !strpos($part_of_speech, 'мн.')
-                        && mb_substr($word, 0, 1) != '-' 
-                        && substr($word, 0, 1) != '-' 
-                        && substr($word, strlen($word) - 1, 1) != '-' 
-                        && mb_substr($word, mb_strlen($word) - 1, 1) != '-' 
-                        && !strpos($word, ' ') 
-                        && !mb_strpos($word, '...')
-                        && mb_substr($word, 0, 3) != '...'
-                        && substr($word, 0, 3) != '...'
-                        && substr($word, strlen($word) - 3, 3) != '...' 
-                        && mb_substr($word, mb_strlen($word) - 3, 3) != '...' 
-                        && !strpos($word, '...')) {
+                        && $part_of_speech != 'мн. разг.'
+                        && $part_of_speech != 'мн. нескл.'
+                        && $part_of_speech != 'числит. разг.'
+//                        && $part_of_speech != 'прил.'
+//                        && $part_of_speech != 'м. разг.'
+//                        && $part_of_speech != '1. м. разг.'
+//                        && $part_of_speech != 'м. разг.-сниж.'
+//                        && $part_of_speech != '1. м. разг.-сниж.'
+//                        && !strpos($part_of_speech, 'м. разг.') 
+//                        && !mb_strpos($part_of_speech, 'м. разг.')
+//                        && !mb_strpos($part_of_speech, 'разг.')
+//                        && !mb_strpos($part_of_speech, '-сниж.')
+//                        && !mb_strpos($word, '...')
+//                        && $part_of_speech != 'I'
+//                        && $part_of_speech != 'предикатив'
+//                        && $part_of_speech != 'несов. и сов.'
+//                        && $part_of_speech != '1. нареч. нар.-поэт.'
+//                        && $part_of_speech != '1. предикатив'
+//                        && $part_of_speech != 'сов. неперех. местн.'
+//                        && $part_of_speech != '1. прил.'
+//                        && $part_of_speech != 'прил. разг.'
+//                        && $part_of_speech != 'прил. нар.-поэт.'
+//                        && $part_of_speech != '1. прил. нар.-поэт.'
+//                        && $part_of_speech != 'прил. местн.'
+//                        && $part_of_speech != 'прил. разг.-сниж.'
+//                        && $part_of_speech != 'прил. устар.'
+//                        && $part_of_speech != 'мн.'
+//                        && $part_of_speech != 'несов.'
+//                        && $part_of_speech != 'сов.'
+//                        && $part_of_speech != 'несов. перех. и неперех.'
+//                        && $part_of_speech != 'несов. неперех.'
+//                        && $part_of_speech != 'несов. перех.'
+//                        && $part_of_speech != 'несов. и сов. перех.'
+//                        && $part_of_speech != 'сов. перех.'
+//                        && $part_of_speech != 'сов. неперех.'
+//                        && $part_of_speech != 'несов. и сов. перех. и неперех.'
+//                        && $part_of_speech != '1. несов.'
+//                        && $part_of_speech != '1. сов.'
+//                        && $part_of_speech != '1. несов. перех. и неперех.'
+//                        && $part_of_speech != '1. несов. неперех.'
+//                        && $part_of_speech != '1. несов. перех.'
+//                        && $part_of_speech != '1. несов. и сов. перех.'
+//                        && $part_of_speech != '1. сов. перех.'
+//                        && $part_of_speech != '1. сов. неперех.'
+//                        && $part_of_speech != '1. несов. и сов. перех. и неперех.'                        
+//                        && $part_of_speech != 'несов. неперех. местн.'                        
+//                        && $part_of_speech != 'м. местн.'                        
+//                        && $part_of_speech != 'ж. местн.'                        
+//                        && $part_of_speech != 'ср. местн.'                        
+//                        && !strpos($part_of_speech, 'прил.')
+//                        && !strpos($part_of_speech, 'мн.')
+//                        && mb_substr($word, 0, 1) != '-' 
+//                        && substr($word, 0, 1) != '-' 
+//                        && substr($word, strlen($word) - 1, 1) != '-' 
+//                        && mb_substr($word, mb_strlen($word) - 1, 1) != '-' 
+//                        && !strpos($word, ' ') 
+//                        && !mb_strpos($word, '...')
+//                        && mb_substr($word, 0, 3) != '...'
+//                        && substr($word, 0, 3) != '...'
+//                        && substr($word, strlen($word) - 3, 3) != '...' 
+//                        && mb_substr($word, mb_strlen($word) - 3, 3) != '...' 
+//                        && !strpos($word, '...')
+                        ) {
+
+                    $word = mb_strtolower($word);
+                      
                     $result = Vocabulary::find()
                             ->where(['vocab' => $word])
                             ->one();

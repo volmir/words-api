@@ -7,7 +7,7 @@ use yii\helpers\Html;
 if (isset($this->params['results'])) {
 
     $base_word = $this->params['results']['word'];
-    $this->title = $base_word . ' - значание слова';
+    $this->title = $base_word . ' - значение слова';
     $h1_title = 'Значения слова "' . $base_word . '"';
 
     if ($this->params['results']['status'] == 'success' && isset($this->params['results']['data']) && count($this->params['results']['data'])) {

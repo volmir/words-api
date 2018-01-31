@@ -24,8 +24,8 @@ class WordController extends Controller {
         if (mb_strlen($word) > 0 && mb_strlen($word) <= 2) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не менее 3-х символов');
             return $this->redirect(Yii::$app->getHomeUrl());
-        } elseif (mb_strlen($word) > 9) {
-            Yii::$app->session->setFlash('info', 'Введите слово длиной не более 9-ти символов');
+        } elseif (mb_strlen($word) > 30) {
+            Yii::$app->session->setFlash('info', 'Введите слово длиной не более 30-ти символов');
             return $this->redirect(Yii::$app->getHomeUrl());
         } elseif (mb_strlen($word) || count($game)) {
             $game = new Game();
@@ -52,8 +52,8 @@ class WordController extends Controller {
         if (mb_strlen($word) > 0 && mb_strlen($word) <= 2) {
             Yii::$app->session->setFlash('info', 'Введите слово длиной не менее 3-х символов');
             return $this->redirect(Url::toRoute(['answers']));
-        } elseif (mb_strlen($word) > 9) {
-            Yii::$app->session->setFlash('info', 'Введите слово длиной не более 9-ти символов');
+        } elseif (mb_strlen($word) > 30) {
+            Yii::$app->session->setFlash('info', 'Введите слово длиной не более 30-ти символов');
             return $this->redirect(Url::toRoute(['answers']));
         } elseif (mb_strlen($word)) {
             $api_url = Url::toRoute('words/' . urlencode($word), true);

@@ -4,7 +4,8 @@ namespace app\modules\api\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\Searching;
+use app\models\SearchingCombination;
+use app\models\SearchingVector;
 use app\models\Vocabulary;
 use app\components\helpers\Timer;
 use app\components\helpers\Memory;
@@ -56,16 +57,17 @@ class DefaultController extends Controller {
         if (mb_strlen($word) <= 2) {
             $result->status = 'error';
             $result->reason = 'The length of the word must be more that 2 characters.';
-        } elseif (mb_strlen($word) > 9) {
+        } elseif (mb_strlen($word) > 30) {
             $result->status = 'error';
-            $result->reason = 'The length of the word is limited to 9 characters.';
+            $result->reason = 'The length of the word is limited to 30 characters.';
         } elseif (mb_strlen($word) > 0) {
-            $game = new Searching();
-            $game->setWord($word);
-            $game->run();
+            //$searching = new SearchingCombination();
+            $searching = new SearchingVector();
+            $searching->setWord($word);
+            $searching->run();
 
             $result->status = 'success';
-            $result->data = $game->getResults();
+            $result->data = $searching->getResults();
         } else {
             $result->status = 'error';
             $result->reason = 'Incorrect word. Must be cyrillic.';
