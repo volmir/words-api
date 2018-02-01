@@ -13,6 +13,15 @@ set_time_limit(60);
 class WordController extends Controller {
 
     public function actionIndex() {
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => 'Слова из слов, игра, слово, комбинации слов, игра со словами, аннаграмма, головоломка'
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Игра «Составь слова» предлагает игрокам известную головоломку, в которой нужно составлять разные слова из одного длинного слова'
+        ]);
+        
         return $this->render('index');
     }
 
@@ -47,6 +56,15 @@ class WordController extends Controller {
     }    
     
     public function actionAnswers() {
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => 'Составление слов, подбор слов, комбинации слов'
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Составление слов из заданных букв. Поиск и подбор возможных слов, составленных из искомого слова. Составление слов по заданным буквам'
+        ]);
+        
         $word = Yii::$app->request->get('word');
         $word = Vocabulary::clear($word);
         if (mb_strlen($word) > 0 && mb_strlen($word) <= 2) {
@@ -70,6 +88,15 @@ class WordController extends Controller {
     }
 
     public function actionDescription() {
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => Yii::$app->request->get('word')
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Значение слова ' . Yii::$app->request->get('word')
+        ]);        
+        
         $word = Yii::$app->request->get('word');
         $word = Vocabulary::clear($word);
         if (mb_strlen($word)) {
@@ -88,10 +115,28 @@ class WordController extends Controller {
     }    
     
     public function actionRules() {
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => 'Правила, игра, составление слов'
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Правила игры «Составь слова»'
+        ]);        
+        
         return $this->render('rules');
     }
 
     public function actionAbout() {
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => 'Описание, информация, подбор слов'
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Описание игры, общая информация о сайте'
+        ]);        
+        
         return $this->render('about');
     }
 

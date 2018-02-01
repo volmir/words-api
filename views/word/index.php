@@ -4,7 +4,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Составь слова - игра';
+$this->title = 'Игра «Составь слова» - онлайн головоломка';
 ?>
 
 <h4>Игра «Составь слова»</h4>
