@@ -7,21 +7,20 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = "Страница не найдена (404 ошибка)";
+
 ?>
 <div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+        Страница <b>http://<?= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] ?></b> не существует
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
+        Произошла ошибка при обработке вашего запроса.<br>
+        Вероятно, подобной страницы не существовало, либо она была удалена с сервера.
     </p>
 
 </div>

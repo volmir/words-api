@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /web
+Disallow: /web/game
+
+Host: combination.cf
+Sitemap: http://combination.cf/sitemap.xml

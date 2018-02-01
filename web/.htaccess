@@ -1,4 +1,4 @@
-Options +FollowSymLinks
+#Options +FollowSymLinks
 IndexIgnore */*
 
 RewriteEngine on
