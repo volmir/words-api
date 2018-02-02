@@ -73,6 +73,7 @@ $config = [
                 'description' => 'word/description',
                 'game' => 'word/game',
                 'game/finish' => 'word/finish',
+                'game/help' => 'word/help',
                 
                 'GET words/<word>' => 'api/default/words',
                 'GET description/<word>' => 'api/default/description',

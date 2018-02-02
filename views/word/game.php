@@ -57,6 +57,14 @@ if (count($game['answers'])) {
 ?>
 
 
+    
+<div id="helpBlock">
+    <p>
+        <strong class="header">Подсказка:</strong> 
+    </p>        
+    <div id="help_infomation"></div>
+    
+</div>    
 
 
 <div id="myModal" class="modal fade">
@@ -83,23 +91,4 @@ if (count($game['answers'])) {
     </div>
 </div>    
 
-
-
-
-<script language="javascript" type="text/javascript">
-    
-function SetFocus() {
-    if (!document.getElementById) {
-        return;
-    }
-
-    var txtMyInputBoxElement = document.getElementById("answerInput");
-    if (txtMyInputBoxElement != null) {
-        txtMyInputBoxElement.focus();
-    }
-}
-
-SetFocus();
-
-</script>
 

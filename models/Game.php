@@ -26,6 +26,7 @@ class Game {
     public function setWord($word) {
         $this->word = $word;
     }
+    
     public function setAnswer($answer) {
         $this->answer = $answer;
     }
@@ -37,7 +38,7 @@ class Game {
         $this->checkFinish();
     }
 
-    private function init() {
+    public function init() {
         $this->game = Yii::$app->session->get('game');
     }
     
@@ -100,4 +101,23 @@ class Game {
         $this->init();
     }
 
+    public function getHelpWord() {
+        $word = '';
+
+        if (count($this->game['words']) > count($this->game['answers'])) {
+            if (count($this->game['words'])) {
+                $words = array_diff($this->game['words'], $this->game['answers']);
+                sort($words);
+                if (isset($words) && is_array($words) && count($words)) {
+                    $random_id = mt_rand(0, count($words) - 1);
+                    if (isset($words[$random_id])) {
+                        $word = $words[$random_id];
+                    }
+                }
+            }
+        }
+
+        return $word;
+    }
+    
 }

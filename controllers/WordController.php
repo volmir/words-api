@@ -139,5 +139,16 @@ class WordController extends Controller {
         
         return $this->render('about');
     }
+    
+    public function actionHelp() {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $game = new Game();
+        $game->init();
+        
+        $result = ['word' => $game->getHelpWord()];
+        
+        return $result;
+    }    
 
 }

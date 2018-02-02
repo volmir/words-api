@@ -72,8 +72,12 @@ if (isset($this->params['show_footer']) && $this->params['show_footer']) {
 <footer>
     <div class="container">
         <p class="pull-left">
+            <a id="helpButton" class="btn btn-default btn-sm">
+                <i class="glyphicon glyphicon-question-sign"></i> Показать подсказку
+            </a>
             <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm">
-            <i class="glyphicon glyphicon-remove"></i> Завершить игру</a>
+                <i class="glyphicon glyphicon-remove"></i> Завершить игру
+            </a>
         </p>
     </div>
 </footer>    

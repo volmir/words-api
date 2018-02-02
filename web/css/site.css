@@ -140,3 +140,17 @@ div.letters {
     bottom: 0;
     height: 40px;
 }
+
+#helpBlock {
+    padding-top: 15px;
+    display: none;
+}
+
+blockquote.help {
+    padding: 5px 20px;
+    margin: 0 0 10px;
+}
+
+blockquote.help p {
+    font-size: 90%;
+}
