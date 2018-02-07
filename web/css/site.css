@@ -154,3 +154,7 @@ blockquote.help {
 blockquote.help p {
     font-size: 90%;
 }
+
+form button.random_game {
+    margin-bottom: 5px;
+}

@@ -61,7 +61,6 @@ class DefaultController extends Controller {
             $result->status = 'error';
             $result->reason = 'The length of the word is limited to 30 characters.';
         } elseif (mb_strlen($word) > 0) {
-            //$searching = new SearchingCombination();
             $searching = new SearchingVector();
             $searching->setWord($word);
             $searching->run();

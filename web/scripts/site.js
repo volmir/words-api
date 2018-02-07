@@ -5,7 +5,6 @@ $(document).ready(function () {
     });
 
     $("#helpButton").click(function () {
-        let word = '';
         $.ajax({
             type: 'GET',
             url: '/web/game/help',
@@ -18,6 +17,13 @@ $(document).ready(function () {
         
         $("#answerInput").focus();
     });
+    
+    $(".description_link").click(function () {
+        if ($(this).data('answer').length > 0) {
+            $('#descriptionModal .word_value').html($(this).data('answer'));
+            getDescription($(this).data('answer'));
+        }
+    });    
 
     if ($("#answerInput").length){
         $("#answerInput").focus();
@@ -26,6 +32,10 @@ $(document).ready(function () {
     if ($("input[name='word']").length){
         $("input[name='word']").focus();
     }
+    
+    $("form button.random_game").click(function () {
+        $("form input.random_word").attr('value', $(this).data('word'));
+    });
     
 });
 
@@ -52,13 +62,41 @@ function getHelp(word) {
     }
 }
 
-function getHelpBlock(description) {
+function getDescription(word) {
+    if (word.length > 0) {
+        $.ajax({
+            type: 'GET',
+            url: '/web/description/' + word,
+            success: function (data) {
+                if (data['status'] == 'success') {
+                    let description_info = '';
+
+                    $.each(data['data'], function (key, row) {
+                        description_info += getHelpBlock(row, true);
+                    });
+
+                    if (description_info.length) {
+                        $('#word_description').html(description_info);
+                        $('#descriptionModal').modal('show');
+                    }
+                }
+            }
+        });
+    }
+}
+
+function getHelpBlock(description, show_vocab = false) {
     let data = '';
 
-    data = '<blockquote class="help"><p>' + description['def'] + ' ';
+    let vocab = '';
+    if (show_vocab) {
+        vocab = '<span class="label label-default">' + description['vocab'] + '</span> - ';
+    }
+
+    data = '<blockquote class="help"><p>' + vocab + description['def'] + ' ';
 
     if (description['baseform'].length) {
-        data += '<br><span class="descr">' + description['baseform'] + '</span>';
+        //data += '<br><span class="descr">' + description['baseform'] + '</span>';
     }
     if (description['phongl'].length) {
         data += '<br><span class="descr">' + description['phongl'] + '</span>';

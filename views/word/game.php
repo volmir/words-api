@@ -22,7 +22,7 @@ foreach ($letters as $letter) {
 
 <p>
     <br>
-    <i>всего найдено <?=$total_words_count?> <?=$total_words_name?>, вы отгадали <?= (int) count($game['answers']) ?></i>
+    <i>всего найдено <?= $total_words_count ?> <?= $total_words_name ?>, вы отгадали <?= (int) count($game['answers']) ?></i>
 </p>
 
 <div>
@@ -48,7 +48,7 @@ if (count($game['answers'])) {
         <?php
         foreach ($game['answers'] as $answer) {
             ?>
-            <li><a href="<?= Url::toRoute(['description', 'word' => $answer]) ?>" target="_blank"><?= $answer ?></a> </li>
+            <li><a href="#" class="description_link" data-answer="<?=$answer?>"><?= $answer ?></a> </li>
             <?php
         }
         ?>
@@ -57,13 +57,13 @@ if (count($game['answers'])) {
 ?>
 
 
-    
+
 <div id="helpBlock">
     <p>
         <strong class="header">Подсказка:</strong> 
     </p>        
     <div id="help_infomation"></div>
-    
+
 </div>    
 
 
@@ -89,6 +89,37 @@ if (count($game['answers'])) {
             </div>
         </div>
     </div>
+</div>  
+
+<div id="descriptionModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Значение слова "<span class="word_value"></span>"</h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="word_description"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
 </div>    
 
+
+<br><br>
+<div class="container">
+    <p class="pull-right">
+        <a id="helpButton" class="btn btn-default btn-sm">
+            <i class="glyphicon glyphicon-question-sign"></i> Показать подсказку
+        </a>
+        <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm">
+            <i class="glyphicon glyphicon-remove"></i> Завершить игру
+        </a>
+    </p>
+</div>
 

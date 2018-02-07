@@ -15,18 +15,25 @@ class WordController extends Controller {
     public function actionIndex() {
         $this->view->registerMetaTag([
             'name' => 'keywords',
-            'content' => 'Слова из слов, игра, слово, комбинации слов, игра со словами, аннаграмма, головоломка'
+            'content' => 'Слова из слов, игра, слово, комбинации слов, игра со словами, викторина, головоломка, аннаграмма'
         ]);
         $this->view->registerMetaTag([
             'name' => 'description',
             'content' => 'Игра «Составь слова» предлагает игрокам известную головоломку, в которой нужно составлять разные слова из одного длинного слова'
         ]);
         
+        $sql = 'SELECT `vocab` FROM `vocabulary` 
+                WHERE
+                    CHAR_LENGTH(`vocab`) >= 11 
+                    AND CHAR_LENGTH(`vocab`) <= 12 
+                ORDER BY RAND() 
+                LIMIT 0,4';
+        $this->view->params['random_words'] = \Yii::$app->db->createCommand($sql)->queryAll();
+      
         return $this->render('index');
     }
 
     public function actionGame() {
-        $this->view->params['show_footer'] = true;
         $word = Yii::$app->request->post('word');
         $word = Vocabulary::clear($word);
         $game = Yii::$app->session->get('game', []);

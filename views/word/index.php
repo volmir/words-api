@@ -4,10 +4,10 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Игра «Составь слова» - онлайн головоломка';
+$this->title = 'Игра «Слова из слов» - онлайн головоломка, викторина';
 ?>
 
-<h4>Игра «Составь слова»</h4>
+<h4>Игра «Составь слова из слов»</h4>
 
 <div class="well well-small">
     <p>
@@ -22,8 +22,23 @@ $this->title = 'Игра «Составь слова» - онлайн голов
     </form>
 </div>
 
+<?php
+if (isset($this->params['random_words'])) {
+?>
+<div class="well well-small">
+    <p>
+        <span>Начать новую игру (<i>со случайным словом</i>):</span>
+    </p>
+    <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
+        <input type="hidden" name="_csrf" value="<?=\Yii::$app->request->getCsrfToken()?>" />
+        <input type="hidden" name="word" class="random_word" value="" />
+        <?php foreach ($this->params['random_words'] as $word) { ?>
+        <button class="btn btn-default random_game" data-word="<?=$word['vocab']?>"><?= mb_strtoupper($word['vocab'])?></button>
+        <?php } ?>
+    </form>    
+</div>
+<?php } ?>
 
-<div style="padding-top: 10px;"></div> 
     <h4>Об игре</h4>
       
 <p>    
