@@ -31,7 +31,7 @@ foreach ($letters as $letter) {
         <span>Ваш ответ:</span>
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>" />
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="" id="answerInput" name="answer" value="" maxlength="30">
+            <input type="text" class="form-control" placeholder="" id="answerInput" name="answer" value="" maxlength="30" autocomplete="off">
         </div>
         <button class="btn btn-primary" type="submit">Проверить</button>
     </form>

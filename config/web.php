@@ -12,13 +12,13 @@ $config = [
     'defaultRoute' => 'word/index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
         'api' => [
             'class' => 'app\modules\api\Module',
         ],
-    ],    
+    ],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'asdl2na672kwm3wmw',
@@ -59,6 +59,18 @@ $config = [
                 ],
             ],
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'mx1.mirohost.net',
+                'username' => 'noreply@combination.cf',
+                'password' => 'DQsEvHonwhSs',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -66,7 +78,7 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 //'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                
+
                 'about' => 'word/about',
                 'rules' => 'word/rules',
                 'answers' => 'word/answers',
@@ -74,6 +86,7 @@ $config = [
                 'game' => 'word/game',
                 'game/finish' => 'word/finish',
                 'game/help' => 'word/help',
+                'contacts' => 'site/contact',
                 
                 'GET words/<word>' => 'api/default/words',
                 'GET description/<word>' => 'api/default/description',
@@ -95,8 +108,8 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+            // uncomment the following to add your IP if you are not connecting from localhost.
+            //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 
