@@ -158,3 +158,20 @@ blockquote.help p {
 form button.random_game {
     margin-bottom: 5px;
 }
+
+div.statistic {
+    padding-left: 0px;
+}
+
+div.game_navigation {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+table thead tr.statistic {
+    background-color: #E8E8E8;
+}
+
+table tfoot tr.statistic {
+    background-color: #F1F1F1;
+}

@@ -45,7 +45,7 @@ if (isset($this->params['results'])) {
                     <?php
                     foreach ($words as $word) {
                         ?>
-                    <li><a href="<?= Url::toRoute(['description', 'word' => $word['vocab']]) ?>" target="_blank"><?= $word['vocab'] ?></a> </li>
+                        <li><a href="#" class="description_link" data-answer="<?=$word['vocab']?>"><?= $word['vocab'] ?></a> </li>
                         <?php
                     }
                     ?>
@@ -76,3 +76,10 @@ if (isset($this->params['results'])) {
 }
 ?>
 
+
+    
+<?php
+
+echo Yii::$app->view->renderFile('@app/views/word/description_modal.php');
+
+?>     

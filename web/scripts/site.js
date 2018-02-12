@@ -23,7 +23,11 @@ $(document).ready(function () {
             $('#descriptionModal .word_value').html($(this).data('answer'));
             getDescription($(this).data('answer'));
         }
-    });    
+    });  
+    
+    $(".statistic_link").click(function () {
+        $('#statisticModal').modal('show');
+    });
 
     if ($("#answerInput").length){
         $("#answerInput").focus();

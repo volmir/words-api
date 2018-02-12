@@ -4,6 +4,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Multibyte;
+use app\widgets\StatisticWidget;
 
 $game = Yii::$app->session->get('game');
 
@@ -15,16 +16,20 @@ $this->title = $game['word'] . ' - cоставь слова';
 
 <p></p>
 
+<div>
+
 <?php
 $letters = Multibyte::stringToArray($game['word']);
 foreach ($letters as $letter) {
     ?><div class="letters"><?= mb_strtoupper($letter) ?></div><?php } ?>
-
-<p>
+</div>
+<div class="container statistic">    
+<p class="pull-left">
     <br>
     <i>всего найдено <?= $total_words_count ?> <?= $total_words_name ?>, вы отгадали <?= (int) count($game['answers']) ?></i>
 </p>
-
+</div>
+    
 <div>
 
     <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
@@ -91,31 +96,21 @@ if (count($game['answers'])) {
     </div>
 </div>  
 
-<div id="descriptionModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Значение слова "<span class="word_value"></span>"</h4>
-            </div>
+<?php
 
-            <div class="modal-body">
-                <div id="word_description"></div>
-            </div>
+echo Yii::$app->view->renderFile('@app/views/word/description_modal.php');
+echo StatisticWidget::widget(['game' => $game]);
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-            </div>
-        </div>
-    </div>
-</div>    
-
+?> 
 
 <br><br>
-<div class="container">
+<div class="container game_navigation">
     <p class="pull-right">
         <a id="helpButton" class="btn btn-default btn-sm">
             <i class="glyphicon glyphicon-question-sign"></i> Показать подсказку
+        </a>
+        <a href="#" class="btn btn-default btn-sm statistic_link">
+            <i class="glyphicon glyphicon-stats"></i> Статистика
         </a>
         <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm">
             <i class="glyphicon glyphicon-remove"></i> Завершить игру

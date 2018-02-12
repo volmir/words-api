@@ -19,6 +19,42 @@ class ImportController extends Controller {
         //$this->importEfremova();
     }
 
+    /**
+     * is_noun: 
+     *   0 - not nount
+     *   1 - nount
+     *   2 - error download page
+     */
+    public function actionPartSpeech() {
+        $sql = 'SELECT vocabulary_id, vocab 
+                FROM vocabulary
+                WHERE is_noun IS NULL';
+        $words = \Yii::$app->db->createCommand($sql)->queryAll();
+        if (isset($words)) {
+            foreach ($words as $word) {
+                $is_noun = 2;
+                $data = $word;
+                
+                $check_url = 'http://wordius.ru/часть-речи/' . mb_strtolower($data['vocab']) . '/';
+                $headers = get_headers($check_url);
+                if ($headers[0] == 'HTTP/1.1 200 OK') {
+                    $is_noun = 0;
+                    $content = file_get_contents($check_url);
+
+                    preg_match_all('|<div class="rule">(.*)</div>|Uis', $content, $matches);
+                    for ($i = 0; $i < count($matches[0]); $i++) {
+                        if (preg_match("/существительным/i", $matches[1][$i])) {
+                            $is_noun = 1;
+                        }
+                    }
+                }
+                
+                $sql = "UPDATE `vocabulary` SET `is_noun` = '" . $is_noun . "' WHERE `vocabulary_id` = " . $data['vocabulary_id'] . ";";
+                $result = \Yii::$app->db->createCommand($sql)->execute();
+            }
+        }
+    }
+
     public function importOzhegov() {
         $lengh = [];
         $content = [];
@@ -95,49 +131,7 @@ class ImportController extends Controller {
                 array_shift($block);
                 $descr = trim(implode(PHP_EOL, $block));
 
-                if (mb_strlen($word) > 2 
-                        && ($part_of_speech == 'предикатив' || mb_strpos($part_of_speech, 'разг.')) 
-                        && count(explode(' ', $word)) == 1
-                        && !mb_strpos($word, '-')
-                        && !mb_strpos($part_of_speech, 'прил.')
-                        && !mb_strpos($part_of_speech, 'сниж.')
-                        && !mb_strpos($part_of_speech, 'мн.')
-                        && $part_of_speech != 'нареч. разг.'
-                        && $part_of_speech != '1. ж. разг.'
-                        && $part_of_speech != 'ж. разг.'
-                        && $part_of_speech != 'прил. разг.'
-                        && $part_of_speech != 'несов. неперех. разг.'
-                        && $part_of_speech != 'местоим. разг.'
-                        && $part_of_speech != 'мн. разг.'
-                        && $part_of_speech != 'несов. разг.'
-                        && $part_of_speech != 'несов. перех. разг.'
-                        && $part_of_speech != 'сов. перех. и неперех. разг.'
-                        && $part_of_speech != 'несов. перех. и неперех. разг.'
-                        && $part_of_speech != '1. несов. перех. разг.'
-                        && $part_of_speech != '1. сов. неперех. разг.'
-                        && $part_of_speech != '1. несов. разг.'
-                        && $part_of_speech != '1. несов. неперех. разг.'
-                        && $part_of_speech != 'сов. неперех. разг.'
-                        && $part_of_speech != '1. нареч. разг.'
-                        && $part_of_speech != 'несов. и сов. перех. разг.'
-                        && $part_of_speech != '1. предикатив разг.'
-                        && $part_of_speech != 'предикатив разг.'
-                        && $part_of_speech != '1. сов. перех. разг.'
-                        && $part_of_speech != '1. несов. перех. и неперех. разг.'
-                        && $part_of_speech != '1. сов. перех. и неперех. разг.'
-                        && $part_of_speech != 'сов. разг.'
-                        && $part_of_speech != '1. сов. разг.'
-                        && $part_of_speech != 'сов. перех. разг.'
-                        && $part_of_speech != '1. м. нескл. разг.'
-                        && $part_of_speech != 'несов. и сов. перех. и неперех. разг.'
-                        && $part_of_speech != 'несов. и сов. разг.'
-                        && $part_of_speech != '1. союз разг.'
-                        && $part_of_speech != 'союз разг.'
-                        && $part_of_speech != 'мн. нескл. разг.'
-                        && $part_of_speech != 'мн.'
-                        && $part_of_speech != 'мн. разг.'
-                        && $part_of_speech != 'мн. нескл.'
-                        && $part_of_speech != 'числит. разг.'
+                if (mb_strlen($word) > 2 && ($part_of_speech == 'предикатив' || mb_strpos($part_of_speech, 'разг.')) && count(explode(' ', $word)) == 1 && !mb_strpos($word, '-') && !mb_strpos($part_of_speech, 'прил.') && !mb_strpos($part_of_speech, 'сниж.') && !mb_strpos($part_of_speech, 'мн.') && $part_of_speech != 'нареч. разг.' && $part_of_speech != '1. ж. разг.' && $part_of_speech != 'ж. разг.' && $part_of_speech != 'прил. разг.' && $part_of_speech != 'несов. неперех. разг.' && $part_of_speech != 'местоим. разг.' && $part_of_speech != 'мн. разг.' && $part_of_speech != 'несов. разг.' && $part_of_speech != 'несов. перех. разг.' && $part_of_speech != 'сов. перех. и неперех. разг.' && $part_of_speech != 'несов. перех. и неперех. разг.' && $part_of_speech != '1. несов. перех. разг.' && $part_of_speech != '1. сов. неперех. разг.' && $part_of_speech != '1. несов. разг.' && $part_of_speech != '1. несов. неперех. разг.' && $part_of_speech != 'сов. неперех. разг.' && $part_of_speech != '1. нареч. разг.' && $part_of_speech != 'несов. и сов. перех. разг.' && $part_of_speech != '1. предикатив разг.' && $part_of_speech != 'предикатив разг.' && $part_of_speech != '1. сов. перех. разг.' && $part_of_speech != '1. несов. перех. и неперех. разг.' && $part_of_speech != '1. сов. перех. и неперех. разг.' && $part_of_speech != 'сов. разг.' && $part_of_speech != '1. сов. разг.' && $part_of_speech != 'сов. перех. разг.' && $part_of_speech != '1. м. нескл. разг.' && $part_of_speech != 'несов. и сов. перех. и неперех. разг.' && $part_of_speech != 'несов. и сов. разг.' && $part_of_speech != '1. союз разг.' && $part_of_speech != 'союз разг.' && $part_of_speech != 'мн. нескл. разг.' && $part_of_speech != 'мн.' && $part_of_speech != 'мн. разг.' && $part_of_speech != 'мн. нескл.' && $part_of_speech != 'числит. разг.'
 //                        && $part_of_speech != 'прил.'
 //                        && $part_of_speech != 'м. разг.'
 //                        && $part_of_speech != '1. м. разг.'
@@ -197,10 +191,10 @@ class ImportController extends Controller {
 //                        && substr($word, strlen($word) - 3, 3) != '...' 
 //                        && mb_substr($word, mb_strlen($word) - 3, 3) != '...' 
 //                        && !strpos($word, '...')
-                        ) {
+                ) {
 
                     $word = mb_strtolower($word);
-                      
+
                     $result = Vocabulary::find()
                             ->where(['vocab' => $word])
                             ->one();

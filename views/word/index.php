@@ -16,7 +16,7 @@ $this->title = 'Игра «Слова из слов» - онлайн голов�
     <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
         <input type="hidden" name="_csrf" value="<?=\Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
-            <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="30">
+            <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="30" autocomplete="off">
         </div>
         <button class="btn btn-primary btn-lg" id="start_search" type="submit">Начать игру</button>
     </form>
