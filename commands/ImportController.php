@@ -17,6 +17,7 @@ class ImportController extends Controller {
     public function actionIndex() {
         //$this->importOzhegov();
         //$this->importEfremova();
+        $this->importKuznetsov();
     }
 
     /**
@@ -34,7 +35,7 @@ class ImportController extends Controller {
             foreach ($words as $word) {
                 $is_noun = 2;
                 $data = $word;
-                
+
                 $check_url = 'http://wordius.ru/часть-речи/' . mb_strtolower($data['vocab']) . '/';
                 $headers = get_headers($check_url);
                 if ($headers[0] == 'HTTP/1.1 200 OK') {
@@ -48,11 +49,71 @@ class ImportController extends Controller {
                         }
                     }
                 }
-                
+
                 $sql = "UPDATE `vocabulary` SET `is_noun` = '" . $is_noun . "' WHERE `vocabulary_id` = " . $data['vocabulary_id'] . ";";
                 $result = \Yii::$app->db->createCommand($sql)->execute();
             }
         }
+    }
+
+    public function importKuznetsov() {
+        $words_added = 0;
+
+        $path = '/var/www/download';
+
+        $dir = scandir($path);
+        foreach ($dir as $file) {
+            if ($file != '.' && $file != '..') {
+                $filepath = $path . '/' . $file;
+                $content = file_get_contents($filepath);
+                if (!preg_match("/<section id='pagination'>/i", $content)) {
+
+                    $descr = '';
+                    if (preg_match_all("/<h3>словарь Кузнецова<\/h3>(.+?)<div class=\"layout\">(.+?)<\/div>/ism", $content, $matches_def)) {
+                        for ($i = 0; $i < count($matches_def[0]); $i++) {
+                            $descr = trim($matches_def[2][$i]);
+                        }
+                    }
+
+                    if (preg_match_all("/<h1>(.*)<\/h1>/is", $content, $matches)) {
+                        for ($i = 0; $i < count($matches[0]); $i++) {
+                            $word = mb_strtolower(trim($matches[1][$i]));
+
+                            if (strlen($word) && strlen($descr)) {
+//                                echo $word . PHP_EOL;
+//                                echo $descr . PHP_EOL;
+
+                                $stylgl = '';
+                                $descr_ext = explode('◁', $descr);
+                                if (isset($descr_ext[1]) && strlen(trim($descr_ext[1]))) {
+                                    $descr = $descr_ext[0];
+                                    $stylgl = trim($descr_ext[1]);
+                                } 
+
+                                $result = Vocabulary::find()
+                                        ->where(['vocab' => $word])
+                                        ->one();
+                                if (!$result) {
+                                    $add_word = new Vocabulary();
+                                    $add_word->vocab = $word;
+                                    $add_word->baseform = '';
+                                    $add_word->phongl = '';
+                                    $add_word->grclassgl = '';
+                                    $add_word->stylgl = $stylgl;
+                                    $add_word->def = $descr;
+                                    $add_word->anti = '';
+                                    $add_word->leglexam = '';
+                                    $add_word->save();
+
+                                    $words_added++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        echo 'Kuznetsov: added ' . $words_added . ' words' . PHP_EOL;
     }
 
     public function importOzhegov() {
@@ -201,7 +262,6 @@ class ImportController extends Controller {
                     if (!$result) {
                         $add_word = new Vocabulary();
                         $add_word->vocab = $word;
-                        $add_word->def = $descr;
                         $add_word->baseform = '';
                         $add_word->phongl = '';
                         $add_word->grclassgl = '';

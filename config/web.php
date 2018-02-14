@@ -8,6 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'name' => 'Составь слова',
     'language' => 'ru-RU',
+    'version' => '0.9.0',
     'bootstrap' => ['log'],
     'defaultRoute' => 'word/index',
     'aliases' => [

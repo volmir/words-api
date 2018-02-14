@@ -19,6 +19,7 @@
                     <?php
                     $total_words = 0;
                     $total_answers = 0;
+                    $total_percent = 0;
 
                     if (isset($statistic['words']) && count($statistic['words'])) {
                         ?>
