@@ -50,9 +50,15 @@ AppAsset::register($this);
             ['label' => 'Главная', 'url' => ['/']],
             ['label' => 'Игра', 'url' => ['/game']],            
             ['label' => 'Поиск слов', 'url' => ['/answers']],
-            ['label' => 'Правила', 'url' => ['/rules']],
-            ['label' => 'Контакты', 'url' => ['/contacts']],
-            ['label' => 'Об игре', 'url' => ['/about']],
+            ['label' => 'Значение слова', 'url' => ['/description']],
+            [
+               'label' => 'Об игре',
+               'items' => [
+                    ['label' => 'Правила', 'url' => ['/rules']],
+                    ['label' => 'Контакты', 'url' => ['/contacts']],
+                    ['label' => 'Об игре', 'url' => ['/about']],
+                ],
+            ],
         ],
     ]);
     NavBar::end();

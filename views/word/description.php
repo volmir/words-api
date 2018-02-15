@@ -1,21 +1,39 @@
 <?php
 /* @var $this yii\web\View */
 
-use \Yii;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
+
+$this->title = 'Значение, толкование слов';
+$h1_title = 'Значение слова';
 
 if (isset($this->params['results'])) {
-
     $base_word = $this->params['results']['word'];
-    $this->title = $base_word . ' - значение слова';
-    $h1_title = 'Значения слова "' . $base_word . '"';
+    $this->title = $base_word . ' - значение, толкование слова';
+    $h1_title = 'Значение слова "' . $base_word . '"';
+}
 
+?>
+
+<h3><?= Html::encode($h1_title) ?></h3>
+
+<div class="well well-small">
+    <p>
+        <span>Введите слово, значение которого вы хотите узнать</span>
+    </p>
+    <form class="form-inline" method="get" action="<?= Url::toRoute(['description']) ?>">
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="30" autocomplete="off">
+        </div>
+        <button class="btn btn-primary btn-lg" id="start_search" type="submit">Поиск</button>
+    </form>
+</div>
+
+<?php
+if (isset($this->params['results'])) {
     if ($this->params['results']['status'] == 'success' && isset($this->params['results']['data']) && count($this->params['results']['data'])) {
-        ?>
 
-        <h3><?= Html::encode($h1_title) ?></h3>
-
-        <?php
         foreach ($this->params['results']['data'] as $description) {
             ?>    
             <blockquote>
@@ -49,19 +67,6 @@ if (isset($this->params['results'])) {
     } else {
         $this->title = 'Слово не найдено';
         Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
-        ?>
-        <p class="text-center">
-            <a href="<?= Yii::$app->getHomeUrl() ?>" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
-        </p>
-        <?php
     }
-} else {
-    $this->title = 'Слово не найдено';
-    Yii::$app->session->setFlash('info', '<strong>Ошибка!</strong> Ничего не найдено.');
-    ?>
-    <p class="text-center">
-        <a href="<?= Yii::$app->getHomeUrl() ?>" class="btn btn-success btn-lg">Вернуться на главную страницу</a>
-    </p>        
-    <?php
-}
+} 
 ?>

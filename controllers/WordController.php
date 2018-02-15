@@ -97,11 +97,11 @@ class WordController extends Controller {
     public function actionDescription() {
         $this->view->registerMetaTag([
             'name' => 'keywords',
-            'content' => Yii::$app->request->get('word')
+            'content' => 'слово, толкование, значение' . (strlen(Yii::$app->request->get('word')) ? ', ' . Yii::$app->request->get('word') : '') 
         ]);
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Значение слова ' . Yii::$app->request->get('word')
+            'content' => 'Значение, толкование слова ' . Yii::$app->request->get('word')
         ]);        
         
         $word = Yii::$app->request->get('word');

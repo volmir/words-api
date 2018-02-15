@@ -16,6 +16,11 @@
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>http://combination.cf/web/description</loc>
+  <lastmod>2018-02-14T09:45:46+00:00</lastmod>
+  <priority>0.50</priority>
+</url>
+<url>
   <loc>http://combination.cf/web/rules</loc>
   <lastmod>2018-02-01T08:25:46+00:00</lastmod>
   <priority>0.50</priority>
