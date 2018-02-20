@@ -90,6 +90,9 @@ class SearchingVector implements ISearching {
                 return ;
             }
         }
+        if ($new_word == $this->word) {
+            return ;
+        }
         
         $lenght = mb_strlen($new_word);
         $this->results[$lenght][] = ['vocab' => $new_word];
