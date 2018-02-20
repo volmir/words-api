@@ -78,8 +78,9 @@ class SearchingVector implements ISearching {
      */
     private function setResult($new_word) {
         $new_word_arr = Multibyte::stringToArray($new_word);
+        
         foreach ($this->letters as $letter) {
-            $letter_pos = mb_strpos($new_word, $letter);
+            $letter_pos = array_search($letter, $new_word_arr);
             if (is_integer($letter_pos)) {
                 $new_word_arr[$letter_pos] = '';
             }
