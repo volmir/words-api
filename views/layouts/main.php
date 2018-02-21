@@ -49,8 +49,14 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Главная', 'url' => ['/']],
             ['label' => 'Игра', 'url' => ['/game']],            
-            ['label' => 'Поиск слов', 'url' => ['/answers']],
-            ['label' => 'Значение слова', 'url' => ['/description']],
+            ['label' => 'Прохождение', 'url' => ['/levels']],            
+            [
+               'label' => 'Сервисы',
+               'items' => [
+                    ['label' => 'Поиск слов', 'url' => ['/answers']],
+                    ['label' => 'Значение слова', 'url' => ['/description']],
+                ],
+            ],            
             [
                'label' => 'Об игре',
                'items' => [

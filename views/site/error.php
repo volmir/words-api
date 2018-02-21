@@ -12,7 +12,7 @@ $this->title = "Страница не найдена (404 ошибка)";
 ?>
 <div class="site-error">
 
-    <h2><?= Html::encode($this->title) ?></h2>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <div class="alert alert-danger">
         Страница <b>http://<?= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] ?></b> не существует

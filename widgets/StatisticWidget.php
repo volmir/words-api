@@ -39,7 +39,7 @@ class StatisticWidget extends Widget {
             }
         }
         
-        return $this->renderFile('@app/views/word/statistic.php', [
+        return $this->renderFile('@app/views/game/statistic.php', [
                     'game' => $this->game,
                     'statistic' => $statistic,
         ]);

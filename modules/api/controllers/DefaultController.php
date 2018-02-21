@@ -10,8 +10,6 @@ use app\models\Vocabulary;
 use app\components\helpers\Timer;
 use app\components\helpers\Memory;
 
-set_time_limit(60);
-
 /**
  * Default controller for the `api` module
  */

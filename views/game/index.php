@@ -4,9 +4,11 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Multibyte;
+use app\models\Game;
 use app\widgets\StatisticWidget;
 
-$game = Yii::$app->session->get('game');
+
+$game = (new Game())->getGame();
 
 $total_words_count = count($game['words']);
 $total_words_name = \app\models\Vocabulary::getNameWords($total_words_count);
@@ -32,7 +34,7 @@ foreach ($letters as $letter) {
     
 <div>
 
-    <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
+    <form class="form-inline" method="post" action="<?= Url::toRoute(['/game']) ?>">
         <span>Ваш ответ:</span>
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>" />
         <div class="form-group">
@@ -106,13 +108,13 @@ echo StatisticWidget::widget(['game' => $game]);
 <br><br>
 <div class="container game_navigation">
     <p class="pull-right">
-        <a id="helpButton" class="btn btn-default btn-sm">
+        <a id="helpButton" class="btn btn-default btn-sm inline-buttons">
             <i class="glyphicon glyphicon-question-sign"></i> Показать подсказку
         </a>
-        <a href="#" class="btn btn-default btn-sm statistic_link">
+        <a href="#" class="btn btn-default btn-sm statistic_link inline-buttons">
             <i class="glyphicon glyphicon-stats"></i> Статистика
         </a>
-        <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm">
+        <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm inline-buttons">
             <i class="glyphicon glyphicon-remove"></i> Завершить игру
         </a>
     </p>

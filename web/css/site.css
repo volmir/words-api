@@ -155,8 +155,15 @@ blockquote.help p {
     font-size: 90%;
 }
 
-form button.random_game {
+.inline-buttons {
     margin-bottom: 5px;
+}
+
+.list-buttons {
+    float: left; 
+    width: 230px;
+    text-align: left;
+    margin-right: 5px;
 }
 
 div.statistic {
@@ -174,4 +181,8 @@ table thead tr.statistic {
 
 table tfoot tr.statistic {
     background-color: #F1F1F1;
+}
+
+.task-comlete {
+    color: #E48107;
 }

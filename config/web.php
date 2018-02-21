@@ -60,6 +60,14 @@ $config = [
                 ],
             ],
         ],
+        'session' => [
+            'class' => 'yii\web\Session',
+            'cookieParams' => [
+                'lifetime' => 3600 * 24 * 30
+            ],
+            'timeout' => 3600 * 24 * 30,
+            'useCookies' => true,
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => false,
@@ -84,11 +92,11 @@ $config = [
                 'rules' => 'word/rules',
                 'answers' => 'word/answers',
                 'description' => 'word/description',
-                'game' => 'word/game',
-                'game/finish' => 'word/finish',
-                'game/help' => 'word/help',
+                'game' => 'game/index',
+                'game/finish' => 'game/finish',
+                'game/help' => 'game/help',
+                'levels' => 'level/index',
                 'contacts' => 'site/contact',
-                
                 'GET words/<word>' => 'api/default/words',
                 'GET description/<word>' => 'api/default/description',
             ],

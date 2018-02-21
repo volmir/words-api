@@ -22,7 +22,7 @@ if (isset($this->params['results'])) {
     <p>
         <span>Введите слово, значение которого вы хотите узнать</span>
     </p>
-    <form class="form-inline" method="get" action="<?= Url::toRoute(['description']) ?>">
+    <form class="form-inline" method="get" action="<?= Url::toRoute(['/description']) ?>">
         <div class="form-group">
             <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="30" autocomplete="off">
         </div>

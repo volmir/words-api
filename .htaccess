@@ -1,2 +1,4 @@
 Options -Indexes
 ErrorDocument 404 http://combination.cf/web/404.htm
+
+php_value session.gc_maxlifetime 2592000

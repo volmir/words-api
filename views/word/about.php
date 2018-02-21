@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 $this->title = 'Об игре';
 ?>
-    <h2><?= Html::encode($this->title) ?></h2>
+    <h3><?= Html::encode($this->title) ?></h3>
 
   
     <div style="padding-top: 10px;"></div>   

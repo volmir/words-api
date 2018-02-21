@@ -13,7 +13,7 @@ $this->title = 'Игра «Слова из слов» - онлайн голов�
     <p>
         <span>Введите слово:</span>
     </p>
-    <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
+    <form class="form-inline" method="post" action="<?= Url::toRoute(['/game']) ?>">
         <input type="hidden" name="_csrf" value="<?=\Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
             <input type="text" class="form-control input-lg" placeholder="" name="word" value="" maxlength="30" autocomplete="off">
@@ -29,11 +29,11 @@ if (isset($this->params['random_words'])) {
     <p>
         <span>Начать новую игру (<i>со случайным словом</i>):</span>
     </p>
-    <form class="form-inline" method="post" action="<?= Url::toRoute(['game']) ?>">
+    <form class="form-inline" method="post" action="<?= Url::toRoute(['/game']) ?>">
         <input type="hidden" name="_csrf" value="<?=\Yii::$app->request->getCsrfToken()?>" />
         <input type="hidden" name="word" class="random_word" value="" />
         <?php foreach ($this->params['random_words'] as $word) { ?>
-        <button class="btn btn-default random_game" data-word="<?=$word['vocab']?>"><?= mb_strtoupper($word['vocab'])?></button>
+        <button class="btn btn-default inline-buttons" data-word="<?=$word['vocab']?>"><?= mb_strtoupper($word['vocab'])?></button>
         <?php } ?>
     </form>    
 </div>

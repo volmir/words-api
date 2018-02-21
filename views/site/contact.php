@@ -14,7 +14,7 @@ $this->title = 'Контакты';
 
     <div class="row margin-null">
       
-        <h2><?= Html::encode($this->title) ?></h2>
+        <h3><?= Html::encode($this->title) ?></h3>
    
         <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 

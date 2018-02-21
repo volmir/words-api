@@ -22,6 +22,12 @@ class Game {
      * @var string 
      */
     protected $game = [];
+    
+    
+    public function getGame() {
+        $this->init();
+        return $this->game;
+    }
 
     public function setWord($word) {
         $this->word = $word;
@@ -39,7 +45,7 @@ class Game {
     }
 
     public function init() {
-        $this->game = Yii::$app->session->get('game');
+        $this->game = Yii::$app->session->get('game', []);
     }
     
     private function checkAnswer() {

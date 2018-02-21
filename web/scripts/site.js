@@ -37,7 +37,7 @@ $(document).ready(function () {
         $("input[name='word']").focus();
     }
     
-    $("form button.random_game").click(function () {
+    $("form button.inline-buttons").click(function () {
         $("form input.random_word").attr('value', $(this).data('word'));
     });
     
