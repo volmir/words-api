@@ -74,7 +74,7 @@ class WordController extends Controller {
         ]);        
         
         $word = Yii::$app->request->get('word');
-        $word = Vocabulary::clear($word);
+        $word = Vocabulary::clear($word, true);
         if (mb_strlen($word)) {
             $api_url = Url::toRoute('description/' . urlencode($word), true);
             $content = file_get_contents($api_url);

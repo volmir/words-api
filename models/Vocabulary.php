@@ -25,12 +25,17 @@ class Vocabulary extends \yii\db\ActiveRecord
      * @param string $word
      * @return string
      */
-    public static function clear($word) {
+    public static function clear($word, $use_hyphen = false) {
+        $hyphen = '';
+        if ($use_hyphen) {
+            $hyphen = '\-';
+        }
+        
         $word = trim($word);
         $word = strip_tags($word);
         $word = stripslashes($word);
         $word = htmlspecialchars($word);
-        $word = preg_replace('/[^а-яА-ЯёЁ]/ui', '', $word);
+        $word = preg_replace('/[^а-яА-ЯёЁ' . $hyphen . ']/ui', '', $word);
         
         return $word;
     }
