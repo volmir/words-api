@@ -5,10 +5,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Multibyte;
 use app\models\Game;
+use app\models\Level;
 use app\widgets\StatisticWidget;
 
 
 $game = (new Game())->getGame();
+$level = (new Level())->getLevel();
 
 $total_words_count = count($game['words']);
 $total_words_name = \app\models\Vocabulary::getNameWords($total_words_count);

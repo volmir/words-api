@@ -19,7 +19,7 @@ class Game {
     protected $answer;
     /**
      *
-     * @var string 
+     * @var array 
      */
     protected $game = [];
     

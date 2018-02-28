@@ -29,32 +29,7 @@ class LevelController extends Controller {
         
         $this->level = new Level();
         $this->view->params['words'] = $this->level->getWords();
-        
-  
-//        $level['стремянка'] = [
-//            'task' => [
-//                'minimum_words' => 10,
-//                'better_words' => 22,
-//                'letter' => [
-//                    'first' => 'к',
-//                    'count' => 10,
-//                ]
-//            ],
-//            'complete' => [
-//                'task1' => true,
-//                'task2' => false,
-//                'task3' => false,
-//            ],
-//            'words' => [
-//                'тюльпан',
-//                'фонтан',
-//                'пирог',
-//                'матч',
-//                'творог',
-//            ]
-//        ];
-
-        
+        $this->view->params['level'] = $this->level->getLevel();
         
         return $this->render('index');
     }

@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\helpers\Url;
 use app\models\Game;
+use app\models\Level;
 use app\models\Vocabulary;
 
 class GameController extends Controller {
@@ -24,13 +25,16 @@ class GameController extends Controller {
             $game = new Game();
             if (mb_strlen($word)) {
                 $game->setWord($word);
-            }
+            } 
             $answer = Yii::$app->request->post('answer');
             $answer = Vocabulary::clear($answer);
             if (mb_strlen($answer)) {
                 $game->setAnswer($answer);
             }
-            $game->run();
+            $game->run();   
+            
+            $level = new Level();
+            $level->run();
             
             return $this->render('index');
         } else {
