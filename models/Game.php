@@ -55,7 +55,7 @@ class Game {
                 Yii::$app->session->setFlash('info', 'Вы уже разгадали слово <strong>' . $this->answer . '</strong>');
             } elseif (in_array($this->answer, $this->game['words'])) {
                 $this->game['answers'][] = $this->answer;
-                Yii::$app->session->set('game', $this->game);
+                $this->save();
                 Yii::$app->session->setFlash('success', 'Правильно!');
             } else {
                 Yii::$app->session->setFlash('info', 'Слово <strong>' . $this->answer . '</strong> не найдено!');
@@ -97,14 +97,13 @@ class Game {
             Yii::$app->session->setFlash('info', 'Комбинации слов не найдены!');
         }
         
-        $game = [
+        $this->game = [
             'word' => $this->word,
             'words' => $words,
             'answers' => [],
         ];
-
-        Yii::$app->session->set('game', $game);
-        $this->init();
+        
+        $this->save();
     }
 
     public function getHelpWord() {
@@ -125,5 +124,18 @@ class Game {
 
         return $word;
     }
+    
+    protected function save() {
+        Yii::$app->session->set('game', $this->game);
+    }
+
+    public function setAnswers($answers) {
+        $this->game['answers'] = $answers;
+        $this->save();
+    }    
+    
+    public function getAnswers() {
+        return $this->game['answers'];
+    }     
     
 }

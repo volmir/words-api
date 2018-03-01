@@ -29,6 +29,10 @@ $(document).ready(function () {
         $('#statisticModal').modal('show');
     });
 
+    $(".tasks_link").click(function () {
+        $('#tasksModal').modal('show');
+    });
+
     if ($("#answerInput").length){
         $("#answerInput").focus();
     }

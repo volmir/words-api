@@ -39,7 +39,7 @@ class StatisticWidget extends Widget {
             }
         }
         
-        return $this->renderFile('@app/views/game/statistic.php', [
+        return $this->renderFile('@app/views/game/statistic_modal.php', [
                     'game' => $this->game,
                     'statistic' => $statistic,
         ]);

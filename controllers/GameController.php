@@ -35,6 +35,17 @@ class GameController extends Controller {
             
             $level = new Level();
             $level->run();
+            if ($level->check()) {
+                $this->view->params['is_level'] = true;
+                $game_answers = $game->getAnswers();
+                if (count($game_answers)) {
+                    $level->setAnswers($game_answers);
+                }
+                $level_answers = $level->getAnswers();
+                if (empty($game->getAnswers()) && count($level_answers)) {
+                    $game->setAnswers($level_answers);
+                }
+            }
             
             return $this->render('index');
         } else {

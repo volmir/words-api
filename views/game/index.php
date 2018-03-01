@@ -9,13 +9,19 @@ use app\models\Level;
 use app\widgets\StatisticWidget;
 
 
-$game = (new Game())->getGame();
-$level = (new Level())->getLevel();
+$game = new Game();
+$game_data = $game->getGame();
+if (isset($this->params['is_level'])) { 
+    $level = new Level();
+    $level_data = $level->getLevel();
+    $level_words = $level->getWords();
+    $level_word = $level_words[$game_data['word']];
+}
 
-$total_words_count = count($game['words']);
+$total_words_count = count($game_data['words']);
 $total_words_name = \app\models\Vocabulary::getNameWords($total_words_count);
 
-$this->title = $game['word'] . ' - cоставь слова';
+$this->title = $game_data['word'] . ' - cоставь слова';
 ?>
 
 <p></p>
@@ -23,14 +29,37 @@ $this->title = $game['word'] . ' - cоставь слова';
 <div>
 
 <?php
-$letters = Multibyte::stringToArray($game['word']);
+$letters = Multibyte::stringToArray($game_data['word']);
 foreach ($letters as $letter) {
     ?><div class="letters"><?= mb_strtoupper($letter) ?></div><?php } ?>
 </div>
 <div class="container statistic">    
 <p class="pull-left">
     <br>
-    <i>всего найдено <?= $total_words_count ?> <?= $total_words_name ?>, вы отгадали <?= (int) count($game['answers']) ?></i>
+    <i>всего найдено <?= $total_words_count ?> <?= $total_words_name ?>, вы отгадали <?= (int) count($game_data['answers']) ?></i>
+    <?php
+    if (isset($this->params['is_level'])) {
+        $task_level = '';
+        $task_words = '';
+        $task_letters = '';
+
+        if (isset($level_data[$game_data['word']]['next_level'])) {
+            $task_level = ' task-comlete';
+        }
+        if (isset($level_data[$game_data['word']]['count_words'])) {
+            $task_words = ' task-comlete';
+        }
+        if (isset($level_data[$game_data['word']]['count_letters'])) {
+            $task_letters = ' task-comlete';
+        }
+        ?>      
+        <i style="padding-left: 20px;"></i>
+        <a href="#" class="btn btn-default btn-sm tasks_link inline-buttons">
+        <i class="glyphicon glyphicon-star-empty<?= $task_level ?>" aria-hidden="true"></i>
+        <i class="glyphicon glyphicon-star-empty<?= $task_words ?>" aria-hidden="true"></i>
+        <i class="glyphicon glyphicon-star-empty<?= $task_letters ?>" aria-hidden="true"></i>
+        </a>
+    <?php } ?>                            
 </p>
 </div>
     
@@ -47,7 +76,7 @@ foreach ($letters as $letter) {
 </div>
 
 <?php
-if (count($game['answers'])) {
+if (count($game_data['answers'])) {
     ?>
     <br>
     <p>
@@ -55,7 +84,7 @@ if (count($game['answers'])) {
     </p>
     <ul class="list-inline">
         <?php
-        foreach ($game['answers'] as $answer) {
+        foreach ($game_data['answers'] as $answer) {
             ?>
             <li><a href="#" class="description_link" data-answer="<?=$answer?>"><?= $answer ?></a> </li>
             <?php
@@ -103,7 +132,14 @@ if (count($game['answers'])) {
 <?php
 
 echo Yii::$app->view->renderFile('@app/views/word/description_modal.php');
-echo StatisticWidget::widget(['game' => $game]);
+echo StatisticWidget::widget(['game' => $game_data]);
+if (isset($this->params['is_level'])) { 
+    echo Yii::$app->view->renderFile('@app/views/game/tasks_modal.php', [
+        'level_data' => $level_data, 
+        'level_word' => $level_word, 
+        'game_data' => $game_data
+    ]);
+}
 
 ?> 
 
@@ -116,6 +152,11 @@ echo StatisticWidget::widget(['game' => $game]);
         <a href="#" class="btn btn-default btn-sm statistic_link inline-buttons">
             <i class="glyphicon glyphicon-stats"></i> Статистика
         </a>
+        <?php if (isset($this->params['is_level'])) { ?>
+        <a href="#" class="btn btn-default btn-sm tasks_link inline-buttons">
+            <i class="glyphicon glyphicon-star"></i> Задания
+        </a>
+        <?php } ?>
         <a href="#myModal" data-toggle="modal" class="btn btn-default btn-sm inline-buttons">
             <i class="glyphicon glyphicon-remove"></i> Завершить игру
         </a>

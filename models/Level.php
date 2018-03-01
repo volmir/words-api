@@ -23,8 +23,8 @@ class Level {
      */
     protected $words = [
         'рекуперация' => ['answers' => 10, 'words' => 15, 'letters' => ['letter' => 'п', 'count' => 8]],
-        'опровержение' => ['answers' => 10, 'words' => 15, 'letters' => ['letter' => 'р', 'count' => 3]],
-        'хлопкопункт' => ['answers' => 10, 'words' => 15, 'letters' => ['letter' => '', 'count' => 1]],
+        'опровержение' => ['answers' => 8, 'words' => 14, 'letters' => ['letter' => 'р', 'count' => 3]],
+        'хлопкопункт' => ['answers' => 10, 'words' => 20, 'letters' => ['letter' => 'к', 'count' => 8]],
         'аспирантура' => ['answers' => 10, 'words' => 15, 'letters' => ['letter' => '', 'count' => 1]],
         'ратификация' => ['answers' => 10, 'words' => 15, 'letters' => ['letter' => '', 'count' => 1]],
         'чемпионство' => ['answers' => 10, 'words' => 15, 'letters' => ['letter' => '', 'count' => 1]],
@@ -69,7 +69,6 @@ class Level {
     }    
     
     public function run() {
-        $this->loadGame();
         if ($this->check()) {
             $this->init();
             $this->checkNextLevel();
@@ -80,12 +79,14 @@ class Level {
     }
     
     public function check() {
+        $this->loadGame();        
         $result = false;
         if (isset($this->words[$this->game['word']])) {
             $result = true;
         }
         return $result;
     }
+    
     
     protected function init() {
         $this->level = Yii::$app->session->get('level', []);
@@ -125,6 +126,27 @@ class Level {
             $this->level[$this->game['word']]['count_letters'] = 1;
         }
     }     
+    
+    public function setAnswers($answers) {
+        if (isset($this->game['word'])) {
+            $this->loadGame();
+        }
+        $this->level[$this->game['word']]['answers'] = $answers;
+        $this->save();
+    }    
+    
+    public function getAnswers() {
+        if (isset($this->game['word'])) {
+            $this->loadGame();
+        }
+        
+        $answers = [];
+        if (isset($this->level[$this->game['word']]['answers'])) {
+            $answers = $this->level[$this->game['word']]['answers'];
+        }
+        
+        return $answers;
+    }      
     
     protected function save() {
         Yii::$app->session->set('level', $this->level);
