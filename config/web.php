@@ -99,6 +99,7 @@ $config = [
                 'contacts' => 'site/contact',
                 'GET words/<word>' => 'api/default/words',
                 'GET description/<word>' => 'api/default/description',
+                'GET random/<count:\d+>' => 'api/default/random',
             ],
         ],
     ],

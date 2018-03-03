@@ -1,7 +1,6 @@
 <?php
 /* @var $this yii\web\View */
 
-use \Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -32,7 +31,7 @@ if (isset($this->params['results'])) {
         $total_words_name = \app\models\Vocabulary::getNameWords($total_words);
         
         ?>
-        <p><i>Из "<?= $base_word ?>" можно составить <?= $total_words ?> <?= $total_words_name ?> из <?= implode(',', $total_lenght) ?> букв</i>.</p>
+        <p style="padding-top: 5px; padding-bottom: 5px;"><i>Из "<?= $base_word ?>" можно составить <?= $total_words ?> <?= $total_words_name ?> из <?= implode(',', $total_lenght) ?> букв</i>.</p>
 
         <?php
         foreach ($data as $lenght => $words) {

@@ -97,5 +97,26 @@ class DefaultController extends Controller {
 
         return $data;
     }
+    
+    public function actionRandom($count) {
+        $result = new \stdClass();        
+        if ($count > 0 && $count <= 12) {
+            $sql = 'SELECT `vocab` FROM `vocabulary` 
+                    WHERE
+                        CHAR_LENGTH(`vocab`) >= 11 
+                        AND CHAR_LENGTH(`vocab`) <= 12 
+                    ORDER BY RAND() 
+                    LIMIT 0,' . (int)$count;
+            $random_words = \Yii::$app->db->createCommand($sql)->queryAll();
+            
+            $result->status = 'success';
+            $result->data = $random_words;
+        }  else {
+            $result->status = 'error';
+            $result->reason = 'Incorrect count words. Must be from 1 to 12.';
+        }
+        
+        return $result;
+    }    
 
 }

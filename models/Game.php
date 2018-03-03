@@ -90,7 +90,9 @@ class Game {
         if (isset($results['data']) && count($results['data'])) {
             foreach ($results['data'] as $rows) {
                 foreach ($rows as $word) {
-                    $words[] = $word['vocab'];
+                    if (mb_strlen($word['vocab']) > 2) {
+                        $words[] = $word['vocab'];
+                    }
                 }
             }
         } else {

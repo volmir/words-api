@@ -5,10 +5,11 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Url;
-//use app\models\Game;
 use app\models\Vocabulary;
 
 class WordController extends Controller {
+    
+    const RANDOM_WORSD = 4;
 
     public function actionIndex() {
         $this->view->registerMetaTag([
@@ -19,15 +20,14 @@ class WordController extends Controller {
             'name' => 'description',
             'content' => 'Игра «Составь слова» предлагает игрокам известную головоломку, в которой нужно составлять разные слова из одного длинного слова'
         ]);
-        
-        $sql = 'SELECT `vocab` FROM `vocabulary` 
-                WHERE
-                    CHAR_LENGTH(`vocab`) >= 11 
-                    AND CHAR_LENGTH(`vocab`) <= 12 
-                ORDER BY RAND() 
-                LIMIT 0,4';
-        $this->view->params['random_words'] = \Yii::$app->db->createCommand($sql)->queryAll();
       
+        $api_url = Url::toRoute('random/' . self::RANDOM_WORSD, true);
+        $content = file_get_contents($api_url);
+        $results = json_decode($content, true); 
+        if (isset($results['data']) && count($results['data'])) {
+            $this->view->params['random_words'] = $results['data'];
+        }
+        
         return $this->render('index');
     }
 
