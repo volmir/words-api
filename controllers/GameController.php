@@ -27,7 +27,7 @@ class GameController extends Controller {
                 $game->setWord($word);
             } 
             $answer = Yii::$app->request->post('answer');
-            $answer = Vocabulary::clear($answer);
+            $answer = mb_strtolower(Vocabulary::clear($answer));
             if (mb_strlen($answer)) {
                 $game->setAnswer($answer);
             }
